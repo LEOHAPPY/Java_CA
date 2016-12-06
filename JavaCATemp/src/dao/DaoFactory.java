@@ -1,6 +1,6 @@
 package dao;
 
-public class DaoFactory {
+public class DAOFactory {
 
 	public static PersonDAO getStudentDAO() {
 		return new StudentDAOImpl();

@@ -15,6 +15,6 @@ Enrollment</a></td>
 Performance</a></td>
 	</tr>
 	<tr>
-		<td><a href="/WebShowcase/home/load">Log Out</a></td>
+		<td><a href="${pageContext.request.contextPath }/views/Login.jsp">Log Out</a></td>
 	</tr>
 </table>
