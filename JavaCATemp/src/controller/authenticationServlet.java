@@ -61,7 +61,6 @@ public class authenticationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		char firstChar = username.trim().charAt(0);
-		System.out.println(firstChar);
 		
 		//Identification
 		if(firstChar == 'S' || firstChar == 's'){
@@ -116,8 +115,5 @@ public class authenticationServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		
-
 	}
 }

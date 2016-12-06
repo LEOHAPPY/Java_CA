@@ -8,18 +8,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-I am silly boy
-<table>
-<tr><th>ID</th><th>Name</th><th>Email</th><th>Pw</th><th>login</th></tr>
-<c:forEach var="person" items="${requestScope.aList}" varStatus="status">
-<tr>
-<td>${person.id}</td>
-<td>${person.name}</td>
-<td>${person.email}</td>
-<td>${person.pw}</td>
-<td>${person.id}</td>
-</tr>
-</c:forEach>
-</table>
+	<!-- left navigation -->
+	<table style="float: left">
+		<td><%@ include file="SamePart.jsp"%></td>
+	</table>
+
+	<!-- content -->
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Pw</th>
+			<th>login</th>
+		</tr>
+		<c:forEach var="person" items="${requestScope.aList}"
+			varStatus="status">
+			<tr>
+				<td>${person.id}</td>
+				<td>${person.name}</td>
+				<td>${person.email}</td>
+				<td>${person.pw}</td>
+				<td>${person.id}</td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>
