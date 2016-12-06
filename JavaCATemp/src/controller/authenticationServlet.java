@@ -18,8 +18,8 @@ import model.Person;
 /**
  * Servlet implementation class authenticationServlet
  */
-//@WebServlet(name ="authenServlet", urlPatterns = {"/authenServlet"})
-@WebServlet("/authenServlet")
+@WebServlet(name = "authenServlet", urlPatterns = { "/authenServlet" })
+
 public class authenticationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +38,7 @@ public class authenticationServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -56,47 +56,68 @@ public class authenticationServlet extends HttpServlet {
 
 	private void authentication(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-//		String username = request.getParameter("username");
-//		String password = request.getParameter("password");
-////		String role = request.getParameter("role");
-//		String role = "Admin";
+
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+
+		char firstChar = username.trim().charAt(0);
+		System.out.println(firstChar);
 		
-		PersonDAO ad= dao.DAOFactory.getAdminDao();
-		ArrayList<Person> aList;
-		try {
-			aList = ad.findAllPerson();
-			request.setAttribute("aList", aList);
-			for (Person p : aList) {
-				RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
-				ra.forward(request, response);
-				return;
-			} 
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//Identification
+		if(firstChar == 'S' || firstChar == 's'){
+			PersonDAO ad = dao.DAOFactory.getStudentDAO();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person p : aList) {
+					if(username.equals(p.getId()) && password.equals(p.getPw())){
+						RequestDispatcher ra = request.getRequestDispatcher("/views/Student/StudentDefault.jsp");
+						ra.forward(request, response);
+						return;	
+					}
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(firstChar == 'L' || firstChar == 'l' ) {
+			PersonDAO ad = dao.DAOFactory.getLectureDAO();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person p : aList) {
+					if(username.equals(p.getId()) && password.equals(p.getPw())){
+						RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
+						ra.forward(request, response);
+						return;	
+					}
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if (firstChar == 'A' || firstChar == 'a'){
+			PersonDAO ad = dao.DAOFactory.getAdminDao();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person p : aList) {
+					if(username.equals(p.getId()) && password.equals(p.getPw())){
+						RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
+						ra.forward(request, response);
+						return;	
+					}
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		
+
 	}
 }
-		
-//			
-////			
-////			try {
-////				aList = ad.findAllPerson();
-////				for (Person p : aList) {
-////					if(p.getLogin()==username&&p.getPw()==password)
-////					{
-////						RequestDispatcher ra = request.getRequestDispatcher("${pageContext.request.contextPath}/views/Admin/AdminDefault.jsp");
-////						ra.forward(request, response);
-////						return;
-////					}
-////				} 
-////				}catch (DAOException e) {
-////				// TODO Auto-generated catch block
-////				e.printStackTrace();
-////			}
-//		}
-//		
-//		}
-//
-//		}}}
