@@ -10,7 +10,7 @@
 	<table width="100%">
 		<tr>
 			<td width="50%">
-				<form method="POST" action="authenServlet">
+				<form method="POST" action="/WebShowcase/authenServlet"> 
 					Username: <input type="text" name="username" /> <br />
 					Password: <input
 						type="text" name="password" /> <br /> 

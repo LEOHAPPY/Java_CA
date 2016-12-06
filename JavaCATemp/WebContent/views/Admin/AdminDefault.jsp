@@ -11,7 +11,7 @@
 I am silly boy
 <table>
 <tr><th>AdminID</th><th>AdminName</th><th>AdminEmail</th><th>AdminPw</th><th>login</th></tr>
-<c:forEach var="person" items="${requestScope.person}" varStatus="status">
+<c:forEach var="person" items="${requestScope.aList}" varStatus="status">
 <tr>
 <td>${person.id}</td>
 <td>${person.name}</td>

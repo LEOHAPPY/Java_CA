@@ -11,23 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
 import dao.DAOException;
 import dao.PersonDAO;
-import data.AdminDAO;
-import data.DAOFactory;
-import data.LecturerDAO;
-import data.StudentDAO;
-import model.Admin;
-import model.Lecturer;
 import model.Person;
-import model.Student;
 
 /**
  * Servlet implementation class authenticationServlet
  */
-@WebServlet(name ="authenServlet", urlPatterns = { "/authenServlet" })
+//@WebServlet(name ="authenServlet", urlPatterns = {"/authenServlet"})
+@WebServlet("/authenServlet")
 public class authenticationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,19 +29,6 @@ public class authenticationServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		PersonDAO ad = dao.DAOFactory.getAdminDao();
-//		ArrayList<Admin> admins;
-//		try {
-//			admins = ad.findAllPerson();
-//			request.setAttribute("admins", admins);
-//			RequestDispatcher rd = request.getRequestDispatcher("/AdminPages/AdminDefault.jsp");
-//			rd.forward(request, response);
-//
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		try {
 			authentication(request, response);
 		} catch (ClassNotFoundException e) {
@@ -77,16 +56,18 @@ public class authenticationServlet extends HttpServlet {
 
 	private void authentication(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-//		String role = request.getParameter("role");
-		String role = "Admin";
+//		String username = request.getParameter("username");
+//		String password = request.getParameter("password");
+////		String role = request.getParameter("role");
+//		String role = "Admin";
+		
 		PersonDAO ad= dao.DAOFactory.getAdminDao();
 		ArrayList<Person> aList;
 		try {
 			aList = ad.findAllPerson();
+			request.setAttribute("aList", aList);
 			for (Person p : aList) {
-				RequestDispatcher ra = request.getRequestDispatcher("${pageContext.request.contextPath}/views/Admin/AdminDefault.jsp");
+				RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
 				ra.forward(request, response);
 				return;
 			} 

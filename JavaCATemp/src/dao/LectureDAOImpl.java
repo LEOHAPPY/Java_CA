@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.HeroDTO;
-import model.HeroSearchDTO;
 import model.Person;
 
 public class LectureDAOImpl implements PersonDAO {
