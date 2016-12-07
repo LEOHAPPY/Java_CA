@@ -72,7 +72,7 @@ public class authenticationServlet extends HttpServlet {
 				request.setAttribute("aList", aList);
 				for (Person p : aList) {
 					if(username.equals(p.getId()) && password.equals(p.getPw())){
-						RequestDispatcher ra = request.getRequestDispatcher("/views/Student/StudentDefault.jsp");
+						RequestDispatcher ra = request.getRequestDispatcher("/studentload");
 						ra.forward(request, response);
 						return;	
 					}
@@ -94,7 +94,7 @@ public class authenticationServlet extends HttpServlet {
 						HttpSession session = request.getSession();
 				    	session.setAttribute("profile", p);
 				    	 
-						RequestDispatcher ra = request.getRequestDispatcher("/studentload");
+						RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
 						ra.forward(request, response);
 						return;	
 					}

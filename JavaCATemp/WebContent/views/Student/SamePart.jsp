@@ -4,7 +4,7 @@
 		<td><a href="/WebShowcase/load">Grades and GPA</a></td>
 	</tr>
 	<tr>
-		<td><a href="/WebShowcase/views/Student/StudentDefault.jsp">View Current Courses</a></td>
+		<td><a href="/WebShowcase/studentload">View Current Courses</a></td>
 	</tr>
 	<tr>
 		<td><a href="/WebShowcase/availablecourse">Enroll New Course</a></td>
