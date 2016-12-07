@@ -14,4 +14,11 @@ public class DAOFactory {
 		return new AdminDAOImpl();
 	}
 
+	public static CourseDAO getCourseDao() {
+		return new CourseDAOImpl();
+	}
+	
+	public static EnrollmentDAO getEnrollmentDao() {
+		return new EnrollmentDAOImpl();
+	}
 }

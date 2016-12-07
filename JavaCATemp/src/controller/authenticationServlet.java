@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DAOException;
 import dao.PersonDAO;
@@ -88,7 +89,12 @@ public class authenticationServlet extends HttpServlet {
 				request.setAttribute("aList", aList);
 				for (Person p : aList) {
 					if(username.equals(p.getId()) && password.equals(p.getPw())){
-						RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
+						//RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
+						
+						HttpSession session = request.getSession();
+				    	session.setAttribute("profile", p);
+				    	 
+						RequestDispatcher ra = request.getRequestDispatcher("/studentload");
 						ra.forward(request, response);
 						return;	
 					}
