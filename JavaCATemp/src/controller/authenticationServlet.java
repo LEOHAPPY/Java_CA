@@ -60,7 +60,11 @@ public class authenticationServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
+		
+//		Person p = new Person();
+//		p.setId(username);
+//		p.setPw(password);
+//		
 		char firstChar = username.trim().charAt(0);
 		
 		//Identification
