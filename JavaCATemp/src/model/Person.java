@@ -6,7 +6,34 @@ public class Person {
 	private String email;
 	private String pw;
 	private String login;
+	private String role;
+	private int loadTime;
+	private String selNav;
 	
+	public String getSelNav() {
+		return selNav;
+	}
+
+	public void setSelNav(String selNav) {
+		this.selNav = selNav;
+	}
+
+	public int getLoadTime() {
+		return loadTime;
+	}
+
+	public void setLoadTime(int loadTime) {
+		this.loadTime = loadTime;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public Person() {
 		// TODO Auto-generated constructor stub
 	}
@@ -64,6 +91,8 @@ public class Person {
 	public String toString() {
 		return "Person [id=" + id + ", name=" + name + ", email=" + email + ", pw=" + pw + ", login=" + login + "]";
 	}
+
+
 
 
 

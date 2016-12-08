@@ -1,14 +1,14 @@
 
 <table id="left-nav-container">
 	<tr>
-		<td><a href="#">Manage Administrators</a></td>
+		<td><a href="${pageContext.request.contextPath }/AdminNav/Admins">Manage Administrators</a></td>
 	</tr>
 	<tr>
 	<tr>
-		<td><a href="/WebShowcase/load">Manage Students</a></td>
+		<td><a href="${pageContext.request.contextPath }/AdminNav/Students">Manage Students</a></td>
 	</tr>
 	<tr>
-		<td><a href="/WebShowcase/views/SearchPage.jsp">Manage
+		<td><a href="${pageContext.request.contextPath }/AdminNav/Lectures">Manage
 				Lectures</a></td>
 	</tr>
 	<tr>
