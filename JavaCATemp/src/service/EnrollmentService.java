@@ -86,6 +86,17 @@ public class EnrollmentService {
 			throw new NotFoundException("Error in load all");
 		}
 	}
+	
+	public int findCourseCountByCourseID(String id) throws NotFoundException, SQLException {
+		int count=0;
+		ArrayList<Enrollment> e=findEnrollment();
+		for (Enrollment enrollment : e) {
+			if(enrollment.getCourseId().equals(id))
+				count++;
+		}
+		
+		return count;
+	}
 }
 
 

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import dao.DAOFactory;
@@ -60,8 +61,8 @@ public class StudentLoadController extends HttpServlet {
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws NotFoundException {
 		
-		//String sId=Session.get
-		String sId="S0001";
+		HttpSession session=request.getSession();
+		String sId=(String) session.getAttribute("userId");
 		
 		EnrollmentService es=new EnrollmentService();
 		CourseService cs=new CourseService();		
@@ -71,7 +72,7 @@ public class StudentLoadController extends HttpServlet {
 		
 		for (Enrollment e : courseList) {			
 			
-			if(e.getStudentId().equals(sId) && e.getCourseGrade()!=null){				
+			if(e.getStudentId().equals(sId) && e.getCourseGrade()==null){				
 				Course c=cs.findCourseById(e.getCourseId());
 				
 				data.add(c);

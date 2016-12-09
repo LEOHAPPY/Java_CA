@@ -4,6 +4,18 @@
   <welcome-file-list>
     <welcome-file>views/HomePage.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>host</param-name>
+    <param-value>smtp.gmail.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>port</param-name>
+    <param-value>587</param-value>
+  </context-param>
+  <context-param>
+    <param-name>recipient</param-name>
+    <param-value>honey.blackrose125@gmail.com</param-value>
+  </context-param>
   <filter>
     <filter-name>sitemesh</filter-name>
     <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>

@@ -6,12 +6,88 @@ import java.util.*;
 import exception.NotFoundException;
 import model.Enrollment;
 
+import java.io.IOException;
 import java.math.*;
 
 
 
 public class EnrollmentDAOImpl implements EnrollmentDAO{
 
+	protected Connection conn;
+
+	private void openConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		this.conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/javacadatabase?autoReconnect=true&useSSL=false", "root", "password");
+	}
+
+	private void closeConnection() throws SQLException {
+
+		this.conn.close();
+	}
+	
+	@Override
+	public int updateEnrollment(Enrollment c) throws ClassNotFoundException, SQLException {
+		openConnection();
+		PreparedStatement st = conn.prepareStatement("UPDATE javacadatabase.enrollments SET StudentID=?, CourseID=?, CourseGrade=? WHERE EnrollmentID=?;");
+		st.setString(1,c.getStudentId());
+		//System.out.println("Good");
+		st.setString(2,c.getCourseId());
+		st.setString(3,c.getCourseGrade());
+		st.setInt(4,c.getEnrollmentId());
+		int result=st.executeUpdate();
+		//System.out.println("Update over");
+		closeConnection();
+		return result;
+	}
+
+
+	@Override
+	public ArrayList<Enrollment> findAllEnrollments() throws ClassNotFoundException, SQLException, IOException {
+		openConnection();
+		Statement stmt = this.conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM javacadatabase.enrollments;");
+		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
+		while (rs.next()) {
+
+				Enrollment e = new Enrollment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				eList.add(e);
+		}
+		closeConnection();
+		return eList;
+	}
+
+	@Override
+	public Enrollment findById(String enrollmentID) throws ClassNotFoundException, SQLException {
+		Enrollment e = new Enrollment();
+		openConnection();
+		PreparedStatement st = conn.prepareStatement("SELECT * FROM javacadatabase.enrollments WHERE EnrollmentID =?");
+		st.setString(1,enrollmentID);
+		ResultSet rs=st.executeQuery();
+		while (rs.next()) {
+			e = new Enrollment(rs.getInt("EnrollmentID"), rs.getString("StudentID"), rs.getString("CourseID"),rs.getNString("CourseGrade"));
+		}
+		closeConnection();
+		return e;
+	}
+
+	@Override
+	public ArrayList<Enrollment> findEnrollmentsByCourse(String courseID)
+			throws ClassNotFoundException, SQLException, IOException {
+		openConnection();
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM javacadatabase.enrollments WHERE courseID=?;");
+		ps.setString(1, courseID);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
+		while (rs.next()) {
+			Enrollment e = new Enrollment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			eList.add(e);
+		}
+		closeConnection();
+		return eList;
+	}
+
+	
 	@Override
 	public Enrollment createValueObject() {
 		return new Enrollment();

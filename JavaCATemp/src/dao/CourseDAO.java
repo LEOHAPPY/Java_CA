@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import exception.NotFoundException;
@@ -13,7 +14,11 @@ import model.Course;
 
 public interface CourseDAO {
 
-
+	ArrayList<Course> findAllCourses() 
+			throws ClassNotFoundException, SQLException;
+	
+	public ArrayList<Course> findCoursesByLecturer(String lecturerID) 
+			throws ClassNotFoundException, SQLException;
 
     /**
      * createValueObject-method. This method is used when the Dao class needs
@@ -179,8 +184,9 @@ public interface CourseDAO {
      * @param conn         This method requires working database connection.
      * @param stmt         This parameter contains the SQL statement to be excuted.
      * @param valueObject  Class-instance where resulting data will be stored.
+     * @return 
      */
-    public void singleQuery(Connection conn, PreparedStatement stmt, Course valueObject) 
+    public Course singleQuery(Connection conn, PreparedStatement stmt, Course valueObject) 
           throws NotFoundException, SQLException;
 
 

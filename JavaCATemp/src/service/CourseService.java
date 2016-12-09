@@ -2,7 +2,9 @@ package service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import dao.CourseDAO;
@@ -14,6 +16,8 @@ import model.Enrollment;
 public class CourseService {
 	private CourseDAO udao;
 	private Connection conn;
+	private Statement stmt;
+	private int noOfRecords;
 
 	public CourseService() throws NotFoundException {
 		super();
@@ -83,6 +87,56 @@ public class CourseService {
 			e.printStackTrace();
 			throw new NotFoundException("Error in load all");
 		}
+	}
+	
+	public ArrayList<Course> findCourses (
+            int offset, 
+            int noOfRecords)
+{
+    String query = "select SQL_CALC_FOUND_ROWS * from courses limit "
+             + offset + ", " + noOfRecords;
+    ArrayList<Course> list = new ArrayList<Course>();
+    Course c = null;
+    try {
+        
+         stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            c = new Course();
+            c.setCourseId(rs.getString("CourseID"));
+            c.setCourseName(rs.getString("CourseName"));
+            c.setCourseStart(rs.getDate("CourseStart"));
+            c.setCourseEnd(rs.getDate("CourseEnd"));
+            c.setCourseCredit(rs.getInt("CourseCredit"));
+            c.setCourseMaxSize(rs.getInt("CourseMaxSize"));
+            c.setCourseDesc(rs.getString("CourseDesc"));
+            c.setLectureId(rs.getString("LectureID"));
+            
+            list.add(c);
+        }
+        rs.close();
+         
+        rs = stmt.executeQuery("SELECT FOUND_ROWS()");
+        if(rs.next())
+            this.noOfRecords = rs.getInt(1);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }finally
+    {
+        try {
+            if(stmt != null)
+                stmt.close();
+            if(conn != null)
+                conn.close();
+            } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return list;
+}
+
+	public int getNoOfRecords() {
+		return noOfRecords;
 	}
 }
 

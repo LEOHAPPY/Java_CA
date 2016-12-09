@@ -60,6 +60,14 @@ public class Enrollment implements Cloneable, Serializable {
           this.enrollmentId = enrollmentIdIn;
 
     }
+    
+    public Enrollment(int enrollmentID, String studentID, String courseID, String courseGrade) {
+		super();
+		this.enrollmentId = enrollmentID;
+		this.studentId = studentID;
+		this.courseId = courseID;
+		this.courseGrade = courseGrade;
+	}
 
 
     /** 

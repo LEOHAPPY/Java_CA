@@ -14,7 +14,8 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import dao.DAOException;
 import dao.DAOFactory;
-import dao.PersonDAO;
+import dao.PersonDAOAdmin;
+import model.Course;
 import model.Person;
 
 
@@ -65,25 +66,35 @@ public class modifyProcess extends HttpServlet {
 		Person pp = (Person)session.getAttribute("profile");
 		String role = pp.getSelNav();
 		
-		PersonDAO pdao = DAOFactory.getPersonDAO();
+		PersonDAOAdmin pdao = DAOFactory.getPersonDAO();
 		
 		Person p = new Person();
 		String ins = (String) request.getParameter("ins");
 		System.out.print(ins);
 
 		if (ins.equals("true")){
-			int lastId = pdao.findAllPerson(role).size() + 1;
-			String fourNumId = "0";
-			if(lastId <10){
-				fourNumId = "000" + Integer.toString(lastId);
-			}else if (lastId <100){
-				fourNumId = "00" + Integer.toString(lastId);
-			}else if (lastId < 1000){
-				fourNumId = "0" + Integer.toString(lastId);
+//			int lastId = pdao.findAllPerson(role).size() + 1;
+//			String fourNumId = "0";
+//			if(lastId <10){
+//				fourNumId = "000" + Integer.toString(lastId);
+//			}else if (lastId <100){
+//				fourNumId = "00" + Integer.toString(lastId);
+//			}else if (lastId < 1000){
+//				fourNumId = "0" + Integer.toString(lastId);
+//			}
+//			
+//			String newId = role.charAt(0) + fourNumId;
+//			p.setId(newId);
+			String lastRow = "";
+			ArrayList<Person> personList = pdao.findAllPerson(role);
+			for (Person person : personList) {
+				lastRow=person.getId();
 			}
-			
-			String newId = role.charAt(0) + fourNumId;
-			p.setId(newId);
+			int lastId = Integer.parseInt(lastRow.substring(1))+1;
+			String temp=Integer.toString(lastId);
+			String zero="0000";
+			String result= lastRow.charAt(0) +zero.substring(0, (4-temp.length()))+temp;
+			p.setId(result);
 		}else{
 			p.setId(request.getParameter("id"));
 		}

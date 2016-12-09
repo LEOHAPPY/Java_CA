@@ -6,10 +6,21 @@ import java.util.*;
 import exception.NotFoundException;
 import model.Enrollment;
 
+import java.io.IOException;
 import java.math.*;
 
 public interface EnrollmentDAO {
+	int updateEnrollment(Enrollment c) 
+			throws ClassNotFoundException, SQLException;
 
+	ArrayList<Enrollment> findAllEnrollments() 
+			throws ClassNotFoundException, SQLException, IOException;
+
+	Enrollment findById(String enrollmentID) 
+			throws ClassNotFoundException, SQLException;
+
+	public ArrayList<Enrollment> findEnrollmentsByCourse(String courseID) 
+			throws ClassNotFoundException, SQLException, IOException;
 
     
     public Enrollment createValueObject();

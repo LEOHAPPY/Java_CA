@@ -17,7 +17,7 @@ import javax.websocket.Session;
 
 import dao.DAOException;
 import dao.DAOFactory;
-import dao.PersonDAO;
+import dao.PersonDAOAdmin;
 import model.Person;
 
 /**
@@ -72,7 +72,7 @@ public class loadData extends HttpServlet {
 		//System.out.println(pp.getLoadTime());
 
 		if (pp.getLoadTime() == 0) {
-			PersonDAO ad = dao.DAOFactory.getPersonDAO();
+			PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();
 			ArrayList<Person> aList;
 			try {
 				aList = ad.findAllPerson("Admins");
@@ -100,7 +100,7 @@ public class loadData extends HttpServlet {
 			Person pp2 = (Person) session2.getAttribute("profile");
 			String selNav = pp2.getSelNav();
 
-			PersonDAO ad = dao.DAOFactory.getPersonDAO();
+			PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();
 			ArrayList<Person> aList = ad.findAllPerson(selNav);
 			for (Person p : aList) {
 				request.setAttribute("aList", aList);

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import model.Person;
 
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDAOImpl implements PersonDAOAdmin {
 	private static final String dbUrl = "jdbc:mysql://localhost:3306/jvdb";
 	private static final String dbUserName = "root";
 	private static final String dbPassword = "password";

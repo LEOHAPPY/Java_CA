@@ -44,7 +44,7 @@
                     <td class="nowrap">${course.courseMaxSize}</td>
                     <td class="nowrap">${course.courseDesc}</td>
                     <td class="nowrap">
-                        <c:url var="updurl" scope="page" value="/checkEnrollment">
+                        <c:url var="updurl" scope="page" value="/checkEnroll">
                             <c:param name="id" value="${course.courseId}"/>                            
                         </c:url>
                         <a href="${updurl}">Enroll</a>

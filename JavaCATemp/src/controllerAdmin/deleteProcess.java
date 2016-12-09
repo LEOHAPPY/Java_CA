@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.DAOException;
 import dao.DAOFactory;
-import dao.PersonDAO;
+import dao.PersonDAOAdmin;
 import model.Person;
 
 /**
@@ -66,7 +66,7 @@ public class deleteProcess extends HttpServlet {
 			String role = pp.getSelNav();
 			
 			String id = request.getParameter("id");
-			PersonDAO pdao = DAOFactory.getPersonDAO();
+			PersonDAOAdmin pdao = DAOFactory.getPersonDAO();
 			Person p = pdao.findPerson(id,role);
 			System.out.println(p.toString());
 			pdao.deletePerson(p,role);

@@ -21,7 +21,8 @@
 			<th>Email</th>
 			<th>Pw</th>
 			<th>login</th>
-		</tr>
+		</tr>   
+     <tr>Username from session:<c:out value="${sessionScope.profile.id}"/></tr>
 		<c:forEach var="person" items="${requestScope.aList}"
 			varStatus="status">
 			<tr>
@@ -30,6 +31,7 @@
 				<td>${person.email}</td>
 				<td>${person.pw}</td>
 				<td>${person.id}</td>
+				
 			</tr>
 		</c:forEach>
 	</table>

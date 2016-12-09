@@ -9,39 +9,42 @@
 </head>
 <body>
 	<!-- left navigation -->
-	<table style="float: left">
+	<table style="float: left" width=20%>
 		<td><%@ include file="SamePart.jsp"%></td>
 	</table>
 
 	<!-- content -->
-	<table class="borderAll" border="1px">
-		<tr>
-			<td colspan=8><h1>
-					<center>Current Courses</center>
-				</h1></td>
-		<tr>
-		<tr>
-			<th>#</th>
-			<th>CourseID</th>
-			<th>Course Name</th>
-			<th>Course Start Date</th>
-			<th>Course End Date</th>
-			<th>Course Credit</th>
-			<th>Course Maximum Size</th>
-			<th>Course Description</th>
-		</tr>
-		<c:forEach var="course" items="${course}" varStatus="status">
-			<tr class="${status.index%2==0?'even':'odd'}">
-				<td class="nowrap">${status.index + 1}</td>
-				<td class="nowrap">${course.courseId}</td>
-				<td class="nowrap">${course.courseName}</td>
-				<td class="nowrap">${course.courseStart}</td>
-				<td class="nowrap">${course.courseEnd}</td>
-				<td class="nowrap">${course.courseCredit}</td>
-				<td class="nowrap">${course.courseMaxSize}</td>
-				<td class="nowrap">${course.courseDesc}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	
+       
+        <table class="borderAll" border="1px">
+        <tr ><td colspan=8><h1><center>Current Courses</center></h1></td><tr>
+            <tr>
+               <th>#</th>
+                <th>CourseID</th>
+                <th>Course Name</th>
+                <th>Course Start Date</th>
+                <th>Course End Date</th>
+                <th>Course Credit</th>
+                <th>Course Maximum Size</th>
+                <th>Course Description</th>
+                
+               
+            </tr>
+            
+ <c:forEach var="course" items="${course}" varStatus="status">
+                <tr class="${status.index%2==0?'even':'odd'}">
+                     <td class="nowrap">${status.index + 1}</td>
+                    <td class="nowrap">${course.courseId}</td>
+                    <td class="nowrap">${course.courseName}</td>
+                    <td class="nowrap">${course.courseStart}</td>
+                    <td class="nowrap">${course.courseEnd}</td>
+                    <td class="nowrap">${course.courseCredit}</td>
+                    <td class="nowrap">${course.courseMaxSize}</td>
+                    <td class="nowrap">${course.courseDesc}</td>
+                    
+                    
+                </tr>
+            </c:forEach>
+        </table>
 </body>
 </html>

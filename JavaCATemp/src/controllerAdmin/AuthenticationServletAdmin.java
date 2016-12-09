@@ -14,17 +14,18 @@ import javax.servlet.http.HttpSession;
 
 import dao.DAOException;
 import dao.PersonDAO;
+import dao.PersonDAOAdmin;
 import model.Person;
 
 /**
- * Servlet implementation class authenticationServlet
+ * Servlet implementation class AuthenticationServletAdmin
  */
 @WebServlet("/authenServlet")
 
-public class authenticationServlet extends HttpServlet {
+public class AuthenticationServletAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public authenticationServlet() {
+	public AuthenticationServletAdmin() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -60,6 +61,8 @@ public class authenticationServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		HttpSession session = request.getSession();
+   	 	session.setAttribute("userId", username);
 		
 		Person p = new Person();
 		p.setId(username);
@@ -70,17 +73,63 @@ public class authenticationServlet extends HttpServlet {
 		//Identification
 		if(firstChar == 'S' || firstChar == 's'){
 			p.setRole("Students");
+			
+			PersonDAO ad = dao.DAOFactory.getStudentDAO();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person p1 : aList) {
+					if(username.equals(p1.getId()) && password.equals(p1.getPw())){
+						RequestDispatcher ra = request.getRequestDispatcher("/studentload");
+						ra.forward(request, response);
+						return;	
+					}
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}else if(firstChar == 'L' || firstChar == 'l' ) {
 			p.setRole("Lectures");
+			PersonDAO ad = dao.DAOFactory.getLectureDAO();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person pp : aList) {
+					if(username.equals(pp.getId()) && password.equals(pp.getPw())){
+						//RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
+						
+						//HttpSession session = request.getSession();
+				    	session.setAttribute("profile", pp);
+				    	
+						session.setAttribute("username", request.getParameter("username"));
+						
+						RequestDispatcher ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
+						ra.forward(request, response);
+						return;	
+					}
+				}
+			} catch (DAOException e)
+			{
+				
+				e.printStackTrace();
+			}
+			
 		}else if (firstChar == 'A' || firstChar == 'a'){
 			p.setRole("Admins");
+			RequestDispatcher ra = request.getRequestDispatcher("/loadData");
+			ra.forward(request, response);
 		}
 		
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
     	session.setAttribute("profile", p);
 		
 		//go to /loadData
-		RequestDispatcher ra = request.getRequestDispatcher("/loadData");
-		ra.forward(request, response);
+//    	RequestDispatcher ra = request.getRequestDispatcher("/loadData");
+//		ra.forward(request, response);
 	}
 }

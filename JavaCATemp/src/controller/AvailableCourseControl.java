@@ -1,13 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import exception.NotFoundException;
 import model.Course;
@@ -36,7 +40,7 @@ public class AvailableCourseControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			process(request,response);
-		} catch (NotFoundException e) {
+		} catch (NotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -48,15 +52,17 @@ public class AvailableCourseControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			process(request,response);
-		} catch (NotFoundException e) {
+		} catch (NotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-private void process(HttpServletRequest request, HttpServletResponse response) throws NotFoundException {
+private void process(HttpServletRequest request, HttpServletResponse response) throws NotFoundException, SQLException {
 		
-		//String sId=request.getParameter("id");
-		String sId="S0002";
+		HttpSession session=request.getSession();
+		String sId=(String) session.getAttribute("userId");
+		System.out.println(sId);
+		//String sId="S0001";
 		
 		EnrollmentService es=new EnrollmentService();
 		CourseService cs=new CourseService();
@@ -65,19 +71,20 @@ private void process(HttpServletRequest request, HttpServletResponse response) t
 		ArrayList<Course> data=cs.findCourses();
 		
 		ArrayList<Course> result=cs.findCourses();
-		//Date today=DateTime.now();
+		Date today=new Date();
 		
 		for (Enrollment e : enrollList) {			
 			
-			if(e.getStudentId().equals(sId)){				
+			if(e.getStudentId().equals(sId) ){				
 				Course c=cs.findCourseById(e.getCourseId());
-				
+				int currntCourseSize=es.findCourseCountByCourseID(c.getCourseId());
 				for (Course course : data) {
 					
-					if(course.getCourseId().equals(c.getCourseId())){
-						System.out.println(course);
-						int index=data.indexOf(course);						
-						System.out.println(result.remove(index));
+					if(course.getCourseId().equals(c.getCourseId()) || today.after(course.getCourseStart()) 
+							|| course.getCourseMaxSize() <= currntCourseSize){
+						
+						System.out.println(result.remove(course));
+						//result.remove(course);
 					}
 				}				
 			}
