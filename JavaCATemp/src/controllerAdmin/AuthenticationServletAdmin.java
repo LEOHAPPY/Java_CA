@@ -62,37 +62,48 @@ public class AuthenticationServletAdmin extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
-   	 	session.setAttribute("userId", username);
-		
+		session.setAttribute("userId", username);
+
 		Person p = new Person();
 		p.setId(username);
 		p.setPw(password);
 		p.setLoadTime(0);
+		String error="Your UserName and/or Password is incorrect!";
 		
+		if(username.equals(null) && password.equals(null))
+			error="Please Fill the Blank";
+		else if(username.equals(null))
+			error="Please Enter the user name.";
+		else if(password.equals(null))
+			error="Please Enter the password.";
+
+		RequestDispatcher ra = request.getRequestDispatcher("/views/Login.jsp");
+		request.setAttribute("error", error);
 		char firstChar = username.trim().charAt(0);
-		//Identification
-		if(firstChar == 'S' || firstChar == 's'){
+		// Identification
+		if (firstChar == 'S' || firstChar == 's') {
 			p.setRole("Students");
-			
+
 			PersonDAO ad = dao.DAOFactory.getStudentDAO();
 			ArrayList<Person> aList;
 			try {
 				aList = ad.findAllPerson();
 				request.setAttribute("aList", aList);
 				for (Person p1 : aList) {
-					if(username.equals(p1.getId()) && password.equals(p1.getPw())){
-						RequestDispatcher ra = request.getRequestDispatcher("/studentload");
-						ra.forward(request, response);
-						return;	
+					if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
+						ra = request.getRequestDispatcher("/studentload");
+						
 					}
+					
+					ra.forward(request, response);
+					return;
 				}
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-		}else if(firstChar == 'L' || firstChar == 'l' ) {
+
+		} else if (firstChar == 'L' || firstChar == 'l') {
 			p.setRole("Lectures");
 			PersonDAO ad = dao.DAOFactory.getLectureDAO();
 			ArrayList<Person> aList;
@@ -100,36 +111,57 @@ public class AuthenticationServletAdmin extends HttpServlet {
 				aList = ad.findAllPerson();
 				request.setAttribute("aList", aList);
 				for (Person pp : aList) {
-					if(username.equals(pp.getId()) && password.equals(pp.getPw())){
-						//RequestDispatcher ra = request.getRequestDispatcher("/views/Lecture/LectureDefault.jsp");
+					if (username.equals(pp.getId()) && password.equals(pp.getPw())) {
 						
-						//HttpSession session = request.getSession();
-				    	session.setAttribute("profile", pp);
-				    	
+						session.setAttribute("profile", pp);
+
 						session.setAttribute("username", request.getParameter("username"));
+
+						ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
 						
-						RequestDispatcher ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
-						ra.forward(request, response);
-						return;	
 					}
+					ra.forward(request, response);
+					return;
 				}
-			} catch (DAOException e)
-			{
-				
+			} catch (DAOException e) {
+
 				e.printStackTrace();
 			}
-			
-		}else if (firstChar == 'A' || firstChar == 'a'){
+
+		} else if (firstChar == 'A' || firstChar == 'a') {
 			p.setRole("Admins");
-			RequestDispatcher ra = request.getRequestDispatcher("/loadData");
-			ra.forward(request, response);
+
+			PersonDAO ad = dao.DAOFactory.getAdminDao();
+			ArrayList<Person> aList;
+			try {
+				aList = ad.findAllPerson();
+				request.setAttribute("aList", aList);
+				for (Person pp : aList) {
+					if (username.equals(pp.getId()) && password.equals(pp.getPw())) {
+						
+						session.setAttribute("profile", pp);
+
+						session.setAttribute("username", request.getParameter("username"));
+
+						ra = request.getRequestDispatcher("/loadData");
+						
+					}
+					ra.forward(request, response);
+
+					return;
+				}
+			} catch (DAOException e) {
+
+				e.printStackTrace();
+			}
 		}
-		
-		//HttpSession session = request.getSession();
-    	session.setAttribute("profile", p);
-		
-		//go to /loadData
-//    	RequestDispatcher ra = request.getRequestDispatcher("/loadData");
-//		ra.forward(request, response);
+
+		else {
+			request.setAttribute("error", null);
+			ra = request.getRequestDispatcher("/views/Login.jsp");
+			ra.forward(request, response);
+
+		}
+
 	}
 }

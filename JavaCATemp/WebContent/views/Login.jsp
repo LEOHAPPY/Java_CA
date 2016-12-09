@@ -7,15 +7,30 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<center>
+		<h3>Login Form</h3>
+	</center>
+	<%-- <center>${error}</center> --%>
 	<table width="100%">
+
 		<tr>
 			<td width="50%">
-				<form method="POST" action="/WebShowcase/authenServlet"> 
-					Username: <input type="text" name="username" /> <br />
-					Password: <input
-						type="text" name="password" /> <br /> 
-							  <input type="submit"
-						value="Sign In" />
+				<form method="POST" action="/WebShowcase/authenServlet">
+					<center>
+						<table>
+							<tr>
+								<td>Username:</td>
+								<td><input type="text" name="username" /></td>
+							</tr>
+							<tr>
+								<td>Password:</td>
+								<td><input type="password" name="password" /></td>
+							</tr>
+							<tr>
+								<td><input type="submit" value="Sign In" /></td>
+							</tr>
+						</table>
+					</center>
 				</form>
 			</td>
 		</tr>
