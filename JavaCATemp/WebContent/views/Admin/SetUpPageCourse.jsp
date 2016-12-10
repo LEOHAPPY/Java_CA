@@ -12,7 +12,7 @@
 	<p>set up page for CRUD</p>
 	<!-- Add --><!-- Edit -->
 	
-	<form action="/WebShowcase/modifyProcessCourse" method=post>
+	<form action="/WebShowcase/MCServlet/Update" method=post>
 
 	<center>
 			<table cellpadding=4 cellspacing=2 border=0>
@@ -22,16 +22,16 @@
 				</tr>
 				<tr>
 					<td>id</td>
-					<td><c:if test="${param['insert']==t}">
-							<input type="text" name="id" value="${param['courseId']}" size=15
+					<td><c:if test="${!empty param['insert']}">
+							<input type="text" name="id" value="${param['newCourseID']}" size=15
 								maxlength=20 readonly="readonly">
-							<input type="hidden" name="ins" value="false" /> 
+							<input type="hidden" name="ins" value="true" /> 
 							<!-- later in servlet to choose update/insert. [true: insert] [false: update]-->
 						</c:if> 
-						<c:if test="${param['update']==t}">
+						<c:if test="${!empty param['update']}">
 							<input type="text" name="id" value="${param['courseId']}" size=15
 								maxlength=20 readonly="readonly">
-							<input type="hidden" name="ins" value="true" />
+							<input type="hidden" name="ins" value="false" />
 						</c:if></td>
 				</tr>
 				<tr>

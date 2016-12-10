@@ -10,11 +10,13 @@
 <body>
 	<!-- left navigation -->
 	<table style="float: left">
-		<td><%@ include file="SamePart.jsp"%></td>
+		<tr>
+			<td><%@ include file="SamePart.jsp"%></td>
+		</tr>
 	</table>
 
 	<!-- add -->
-	<c:url var="url" scope="page" value="/views/Admin/SetUpPageCourse.jsp">
+	<!--<c:url var="url" scope="page" value="/views/Admin/SetUpPageCourse.jsp">
 		<c:param name="courseId" value="" />
 		<c:param name="courseName" value="" />
 		<c:param name="courseStart" value="" />
@@ -27,8 +29,8 @@
 	<a href="${url}">Add</a>
 	<br />
 	<br />
-
-	<table class="borderAll">
+-->
+	<table style="float: right" border="1" class="borderAll">
 		<tr>
 			<th>#</th>
 			<th>courseId</th>
@@ -37,48 +39,48 @@
 			<th>courseEnd</th>
 			<th>courseCredit</th>
 			<th>courseMaxSize</th>
-			<th>courseDesc</th>
 			<th>Edit Delete</th>
 		</tr>
 
-		<c:forEach var="course" items="${requestScope.aList}"
-				varStatus="status">
-                <tr class="${status.index%2==0?'even':'odd'}">
-                    <td class="nowrap">${status.index + 1}</td>
-                    <td class="nowrap">${course.courseId}</td>
-                    <td class="nowrap">${course.courseName}</td>
-                    <td class="nowrap">${course.courseStart}</td>
-                    <td class="nowrap">${course.courseEnd}</td>
-                    <td class="nowrap">${course.courseCredit}</td>
-                    <td class="nowrap">${course.courseMaxSize}</td>
-                    <td class="nowrap">${course.courseDesc}</td>
-                    <!-- Edit -->
-                    <td class="nowrap">
-                        <c:url var="updurl" scope="page"
-							value="/views/Admin/SetUpPageCourse.jsp">
-                            <c:param name="courseId" value="${course.courseId}" />
-                            <c:param name="courseName" value="${course.courseName}" />
-                            <c:param name="courseStart"
-								value="${course.courseStart}" />
-                            <c:param name="courseEnd" value="${course.courseEnd}" />
-                            <c:param name="courseCredit" value="${course.courseCredit}" />
-                            <c:param name="courseMaxSize" value="${course.courseMaxSize}" />
-                            <c:param name="courseDesc" value="${course.courseDesc}" />
-                            <c:param name="update" value="false" />
-                        </c:url>
-                        <a href="${updurl}">Edit</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        
-                        <!-- Delete -->
-                        <c:url var="delurl" scope="page"
-							value="/deleteProcess">
-                            <c:param name="courseId" value="${course.courseId}" />
-                        </c:url>
-                        <a href="${delurl}">Delete</a>
-                    </td>
-                </tr>
-            </c:forEach>
-	</table>
+		<c:forEach var="course" items="${requestScope.cList}"
+			varStatus="status">
+			<tr>
+				<td class="nowrap">${status.index + 1}</td>
+				<td class="nowrap">${course.courseId}</td>
+				<td class="nowrap">${course.courseName}</td>
+				<td class="nowrap">${course.courseStart}</td>
+				<td class="nowrap">${course.courseEnd}</td>
+				<td class="nowrap">${course.courseCredit}</td>
+				<td class="nowrap">${course.courseMaxSize}</td>
+				<!-- Edit -->
+				<td class="nowrap"><c:url var="updurl" scope="page"
+						value="/views/Admin/SetUpPageCourse.jsp">
+						<c:param name="courseId" value="${course.courseId}" />
+						<c:param name="courseName" value="${course.courseName}" />
+						<c:param name="courseStart" value="${course.courseStart}" />
+						<c:param name="courseEnd" value="${course.courseEnd}" />
+						<c:param name="courseCredit" value="${course.courseCredit}" />
+						<c:param name="courseMaxSize" value="${course.courseMaxSize}" />
+						<c:param name="courseDesc" value="${course.courseDesc}" />
+						<c:param name="update" value="true" />
+					</c:url> <a href="${updurl}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- Delete -->
+					<!-- 				<c:url var="delurl" scope="page" value="/WebShowcase/MCServlet/Delete">
+						<c:param name="courseId" value="${course.courseId}" />
+					</c:url> <a href="${delurl}">Delete</a></td>
+ -->
+					<form method="POST" action="/WebShowcase/MCServlet/Delete" >
+						<input type="submit" value="Delete" />
+						<input type="hidden" name="courseId" value="${course.courseId}"  /> 
+					</form>
+			</tr>
+		</c:forEach>
 
+	</table>
+	<c:url var="addurl" scope="page"
+		value="/views/Admin/SetUpPageCourse.jsp">
+		<c:param name="newCourseID" value="${sessionScope.newCourseID }" />
+		<c:param name="insert" value="true" />
+	</c:url>
+	<a href="${addurl}">Add</a>
 </body>
 </html>
