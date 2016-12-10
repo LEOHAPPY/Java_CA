@@ -138,6 +138,31 @@ public class CourseService {
 	public int getNoOfRecords() {
 		return noOfRecords;
 	}
+	public ArrayList<Course> findAllCourses() throws ClassNotFoundException, SQLException{
+		Class.forName("com.mysql.jdbc.Driver");
+		this.conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/jvdb?autoReconnect=true&useSSL=false", "root", "password");
+		Statement stmt = this.conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM jvdb.courses;");
+		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
+		Course c = null;
+		ArrayList<Course> cList = new ArrayList<Course>();
+        while (rs.next()) {
+            c = new Course();
+            c.setCourseId(rs.getString("CourseID"));
+            c.setCourseName(rs.getString("CourseName"));
+            c.setCourseStart(rs.getDate("CourseStart"));
+            c.setCourseEnd(rs.getDate("CourseEnd"));
+            c.setCourseCredit(rs.getInt("CourseCredit"));
+            c.setCourseMaxSize(rs.getInt("CourseMaxSize"));
+            c.setCourseDesc(rs.getString("CourseDesc"));
+            c.setLectureId(rs.getString("LectureID"));
+            
+            cList.add(c);
+        }
+        conn.close();
+        return cList;
+	}
 }
 
 

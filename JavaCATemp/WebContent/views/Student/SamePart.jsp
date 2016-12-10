@@ -13,6 +13,6 @@
 		<td><a href="/WebShowcase/availablecourse">Enroll New Course</a></td>
 	</tr>
 	<tr>
-		<td><a href="/WebShowcase/views/Login.jsp">Log Out</a></td>
+		<td><a href="/WebShowcase/logout">Log Out</a></td>
 	</tr>
 </table>

@@ -1,5 +1,6 @@
 package controllerAdmin;
 
+import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -70,10 +71,11 @@ public class deleteProcess extends HttpServlet {
 			Person p = pdao.findPerson(id,role);
 			System.out.println(p.toString());
 			pdao.deletePerson(p,role);
-			
 			//refresh data and go to AdminDefault 
 			ArrayList<Person> aList = pdao.findAllPerson(role);
 			request.setAttribute("aList", aList);
+			
+			request.setAttribute("idd", pp.getId());
 			RequestDispatcher rd = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
 			try {
 				rd.forward(request, response);

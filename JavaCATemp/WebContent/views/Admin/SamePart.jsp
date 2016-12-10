@@ -18,6 +18,6 @@
 		<td><a href="${pageContext.request.contextPath }/MEServlet?">Manage Enrollment</a></td>
 	</tr>
 	<tr>
-		<td><a href="${pageContext.request.contextPath }/views/Login.jsp">Log Out</a></td>
+		<td><a href="${pageContext.request.contextPath }/logout">Log Out</a></td>
 	</tr>
 </table>

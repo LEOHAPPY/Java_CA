@@ -2,6 +2,7 @@ package controllerAdmin;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -29,7 +30,7 @@ public class ManageCourseServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			CourseService cs = new CourseService();
-			ArrayList<Course> cList = cs.findCourses();
+			ArrayList<Course> cList = cs.findAllCourses();
 			request.setAttribute("cList", cList);
 			
 			String newCourseID="C1001";
@@ -48,7 +49,7 @@ public class ManageCourseServlet extends HttpServlet {
 			session.setAttribute("newCourseID", newCourseID);
 			RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/ManageCourse.jsp");
 			ra.forward(request, response);
-		} catch (NotFoundException e) {
+		} catch (NotFoundException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

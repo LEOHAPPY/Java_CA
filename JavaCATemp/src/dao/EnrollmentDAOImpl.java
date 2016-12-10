@@ -18,7 +18,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 	private void openConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		this.conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/javacadatabase?autoReconnect=true&useSSL=false", "root", "password");
+				"jdbc:mysql://localhost:3306/jvdb?autoReconnect=true&useSSL=false", "root", "password");
 	}
 
 	private void closeConnection() throws SQLException {
@@ -29,7 +29,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 	@Override
 	public int updateEnrollment(Enrollment c) throws ClassNotFoundException, SQLException {
 		openConnection();
-		PreparedStatement st = conn.prepareStatement("UPDATE javacadatabase.enrollments SET StudentID=?, CourseID=?, CourseGrade=? WHERE EnrollmentID=?;");
+		PreparedStatement st = conn.prepareStatement("UPDATE jvdb.enrollments SET StudentID=?, CourseID=?, CourseGrade=? WHERE EnrollmentID=?;");
 		st.setString(1,c.getStudentId());
 		//System.out.println("Good");
 		st.setString(2,c.getCourseId());
@@ -42,11 +42,25 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 	}
 
 
+//	@Override
+//	public ArrayList<Enrollment> findAllEnrollments() throws ClassNotFoundException, SQLException, IOException {
+//		openConnection();
+//		Statement stmt = this.conn.createStatement();
+//		ResultSet rs = stmt.executeQuery("SELECT * FROM jvdb.enrollments;");
+//		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
+//		while (rs.next()) {
+//
+//				Enrollment e = new Enrollment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+//				eList.add(e);
+//		}
+//		closeConnection();
+//		return eList;
+//	}
 	@Override
 	public ArrayList<Enrollment> findAllEnrollments() throws ClassNotFoundException, SQLException, IOException {
 		openConnection();
 		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM javacadatabase.enrollments;");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM jvdb.enrollments;");
 		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
 		while (rs.next()) {
 
@@ -61,7 +75,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 	public Enrollment findById(String enrollmentID) throws ClassNotFoundException, SQLException {
 		Enrollment e = new Enrollment();
 		openConnection();
-		PreparedStatement st = conn.prepareStatement("SELECT * FROM javacadatabase.enrollments WHERE EnrollmentID =?");
+		PreparedStatement st = conn.prepareStatement("SELECT * FROM jvdb.enrollments WHERE EnrollmentID =?");
 		st.setString(1,enrollmentID);
 		ResultSet rs=st.executeQuery();
 		while (rs.next()) {
@@ -75,7 +89,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 	public ArrayList<Enrollment> findEnrollmentsByCourse(String courseID)
 			throws ClassNotFoundException, SQLException, IOException {
 		openConnection();
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM javacadatabase.enrollments WHERE courseID=?;");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM jvdb.enrollments WHERE courseID=?;");
 		ps.setString(1, courseID);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Enrollment> eList = new ArrayList<Enrollment>();
@@ -127,6 +141,35 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
         return searchResults;
 	}
 
+//	@Override
+//	public void create(Connection conn, Enrollment valueObject) throws SQLException {
+//		String sql = "";
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//
+//        try {
+//             sql = "INSERT INTO enrollments ( EnrollmentID, StudentID, CourseID, "
+//             + "CourseGrade) VALUES (?, ?, ?, ?) ";
+//             stmt = conn.prepareStatement(sql);
+//
+//             stmt.setInt(1, valueObject.getEnrollmentId()); 
+//             stmt.setString(2, valueObject.getStudentId()); 
+//             stmt.setString(3, valueObject.getCourseId()); 
+//             stmt.setString(4, valueObject.getCourseGrade()); 
+//
+//             int rowcount = databaseUpdate(conn, stmt);
+//             if (rowcount != 1) {
+//                  //System.out.println("PrimaryKey Error when updating DB!");
+//                  throw new SQLException("PrimaryKey Error when updating DB!");
+//             }
+//
+//        } finally {
+//            if (stmt != null)
+//                stmt.close();
+//        }
+//
+//		
+//	}
 	@Override
 	public void create(Connection conn, Enrollment valueObject) throws SQLException {
 		try {
@@ -140,8 +183,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
         ResultSet result = null;
 
         try {
-             sql = "INSERT INTO enrollments ( EnrollmentID, StudentID, CourseID, "
-             + "CourseGrade) VALUES (?, ?, ?, ?) ";
+             sql = "INSERT INTO enrollments ( EnrollmentID, StudentID, CourseID, CourseGrade) VALUES (?, ?, ?, ?) ";
              stmt = conn.prepareStatement(sql);
 
              stmt.setInt(1, valueObject.getEnrollmentId()); 

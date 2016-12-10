@@ -17,6 +17,7 @@ import dao.PersonDAO;
 import exception.NotFoundException;
 import model.Course;
 import model.Enrollment;
+import model.Person;
 import service.CourseService;
 import service.EnrollmentService;
 
@@ -62,7 +63,8 @@ public class StudentLoadController extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws NotFoundException {
 		
 		HttpSession session=request.getSession();
-		String sId=(String) session.getAttribute("userId");
+		Person pp=(Person) session.getAttribute("profile");
+		String sId=pp.getId();
 		
 		EnrollmentService es=new EnrollmentService();
 		CourseService cs=new CourseService();		

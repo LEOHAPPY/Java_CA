@@ -15,6 +15,7 @@ import exception.NotFoundException;
 import model.Course;
 import model.Enrollment;
 import model.GradeSession;
+import model.Person;
 import service.CourseService;
 import service.EnrollmentService;
 
@@ -64,7 +65,8 @@ public class GradeAndGPAControl extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) throws NotFoundException {
 
 		HttpSession session=request.getSession();
-		String sId=(String) session.getAttribute("userId");
+		Person pp=(Person) session.getAttribute("profile");
+		String sId=pp.getId();
 
 		EnrollmentService es = new EnrollmentService();
 		CourseService cs = new CourseService();

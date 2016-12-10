@@ -16,7 +16,7 @@ public class CourseDAOImpl implements CourseDAO {
 	private void openConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		this.conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/javacadatabase?autoReconnect=true&useSSL=false", "root", "password");
+				"jdbc:mysql://localhost:3306/jvdb?autoReconnect=true&useSSL=false", "root", "password");
 	}
 
 	private void closeConnection() throws SQLException {
@@ -24,11 +24,25 @@ public class CourseDAOImpl implements CourseDAO {
 		this.conn.close();
 	}
 
+//	@Override
+//	public ArrayList<Course> findAllCourses() throws ClassNotFoundException, SQLException {
+//		openConnection();
+//		Statement stmt = this.conn.createStatement();
+//		ResultSet rs = stmt.executeQuery("SELECT * FROM javacadatabase.courses;");
+//		ArrayList<Course> cList = new ArrayList<Course>();
+//		while (rs.next()) {
+//			Course c = new Course(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDouble(5),
+//					rs.getInt(6), rs.getString(7), rs.getString(8));
+//			cList.add(c);
+//		}
+//		closeConnection();
+//		return cList;
+//	}
 	@Override
 	public ArrayList<Course> findAllCourses() throws ClassNotFoundException, SQLException {
 		openConnection();
 		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM javacadatabase.courses;");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM jvdb.courses;");
 		ArrayList<Course> cList = new ArrayList<Course>();
 		while (rs.next()) {
 			Course c = new Course(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDouble(5),
@@ -39,10 +53,11 @@ public class CourseDAOImpl implements CourseDAO {
 		return cList;
 	}
 
+
 	@Override
 	public ArrayList<Course> findCoursesByLecturer(String lecturerID) throws ClassNotFoundException, SQLException {
 		openConnection();
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM javacadatabase.courses WHERE LectureID=?;");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM jvdb.courses WHERE LectureID=?;");
 		ps.setString(1, lecturerID);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Course> cList = new ArrayList<Course>();
@@ -103,24 +118,88 @@ public class CourseDAOImpl implements CourseDAO {
 		return searchResults;
 	}
 
+//	@Override
+//	public void create(Connection conn, Course valueObject) throws SQLException {
+//		String sql = "";
+//		PreparedStatement stmt = null;
+//		ResultSet result = null;
+//
+//		try {
+//			sql = "INSERT INTO courses ( CourseName, CourseStart, CourseEnd, "
+//					+ "CourseCredit, CourseMaxSize, CourseDesc, " + "LectureID) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+//			stmt = conn.prepareStatement(sql);
+//
+//			stmt.setString(1, valueObject.getCourseName());
+//			stmt.setDate(2, valueObject.getCourseStart());
+//			stmt.setDate(3, valueObject.getCourseEnd());
+//			stmt.setInt(4, valueObject.getCourseCredit());
+//			stmt.setInt(5, valueObject.getCourseMaxSize());
+//			stmt.setString(6, valueObject.getCourseDesc());
+//			stmt.setString(7, valueObject.getLectureId());
+//
+//			int rowcount = databaseUpdate(conn, stmt);
+//			if (rowcount != 1) {
+//				// System.out.println("PrimaryKey Error when updating DB!");
+//				throw new SQLException("PrimaryKey Error when updating DB!");
+//			}
+//
+//		} finally {
+//			if (stmt != null)
+//				stmt.close();
+//		}
+//
+//		/**
+//		 * The following query will read the automatically generated primary key
+//		 * back to valueObject. This must be done to make things consistent for
+//		 * upper layer processing logic.
+//		 */
+//		sql = "SELECT last_insert_id()";
+//
+//		try {
+//			stmt = conn.prepareStatement(sql);
+//			result = stmt.executeQuery();
+//
+//			if (result.next()) {
+//
+//				// valueObject.setCourseId(new String((int)result.getLong(1)));
+//				valueObject.setCourseId(result.getString("CourseID"));
+//
+//			} else {
+//				// System.out.println("Unable to find primary-key for created
+//				// object!");
+//				throw new SQLException("Unable to find primary-key for created object!");
+//			}
+//		} finally {
+//			if (result != null)
+//				result.close();
+//			if (stmt != null)
+//				stmt.close();
+//		}
+//
+//	}
 	@Override
 	public void create(Connection conn, Course valueObject) throws SQLException {
+		try {
+			openConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String sql = "";
 		PreparedStatement stmt = null;
 		ResultSet result = null;
 
 		try {
-			sql = "INSERT INTO courses ( CourseName, CourseStart, CourseEnd, "
-					+ "CourseCredit, CourseMaxSize, CourseDesc, " + "LectureID) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+			sql = "INSERT INTO courses ( CourseID ,CourseName, CourseStart, CourseEnd, CourseCredit, CourseMaxSize, CourseDesc,LectureID) VALUES (?,?, ?, ?, ?, ?, ?, ?) ";
 			stmt = conn.prepareStatement(sql);
-
-			stmt.setString(1, valueObject.getCourseName());
-			stmt.setDate(2, valueObject.getCourseStart());
-			stmt.setDate(3, valueObject.getCourseEnd());
-			stmt.setInt(4, valueObject.getCourseCredit());
-			stmt.setInt(5, valueObject.getCourseMaxSize());
-			stmt.setString(6, valueObject.getCourseDesc());
-			stmt.setString(7, valueObject.getLectureId());
+			stmt.setString(1, valueObject.getCourseId());
+			stmt.setString(2, valueObject.getCourseName());
+			stmt.setDate(3, valueObject.getCourseStart());
+			stmt.setDate(4, valueObject.getCourseEnd());
+			stmt.setInt(5, valueObject.getCourseCredit());
+			stmt.setInt(6, valueObject.getCourseMaxSize());
+			stmt.setString(7, valueObject.getCourseDesc());
+			stmt.setString(8, valueObject.getLectureId());
 
 			int rowcount = databaseUpdate(conn, stmt);
 			if (rowcount != 1) {
@@ -129,37 +208,11 @@ public class CourseDAOImpl implements CourseDAO {
 			}
 
 		} finally {
+			closeConnection();
 			if (stmt != null)
 				stmt.close();
 		}
 
-		/**
-		 * The following query will read the automatically generated primary key
-		 * back to valueObject. This must be done to make things consistent for
-		 * upper layer processing logic.
-		 */
-		sql = "SELECT last_insert_id()";
-
-		try {
-			stmt = conn.prepareStatement(sql);
-			result = stmt.executeQuery();
-
-			if (result.next()) {
-
-				// valueObject.setCourseId(new String((int)result.getLong(1)));
-				valueObject.setCourseId(result.getString("CourseID"));
-
-			} else {
-				// System.out.println("Unable to find primary-key for created
-				// object!");
-				throw new SQLException("Unable to find primary-key for created object!");
-			}
-		} finally {
-			if (result != null)
-				result.close();
-			if (stmt != null)
-				stmt.close();
-		}
 
 	}
 

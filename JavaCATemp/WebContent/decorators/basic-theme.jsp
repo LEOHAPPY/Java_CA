@@ -20,8 +20,18 @@
 	</tr>
 	<tr>
 		<td id="nav-container" colspan="2">
+		
+		<!-- --- Change Part -->
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+		
+		
+		
 		<%@ include
-			file="/includes/navigation.jsp"%></td>
+			file="/includes/navigation.jsp"%>
+			
+		
+		<!-- --- Change Part -->
+			</td>
 	</tr>
 	<tr>
 		<td id="content-container"><decorator:body /></td>

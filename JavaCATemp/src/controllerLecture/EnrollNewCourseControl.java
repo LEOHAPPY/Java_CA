@@ -71,7 +71,8 @@ public class EnrollNewCourseControl extends HttpServlet {
 private void process(HttpServletRequest request, HttpServletResponse response) throws NotFoundException, DAOException {
 	//String sId=Session.get
 	HttpSession session=request.getSession();
-	String sId=(String) session.getAttribute("userId");
+	Person pp=(Person) session.getAttribute("profile");
+	String sId=pp.getId(); 
 	
 	String cId=request.getParameter("id");	
 	

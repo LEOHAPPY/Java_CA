@@ -61,7 +61,7 @@ public class ManageEnrollmentServlet extends HttpServlet {
 		switch (action) {
 		case "/Update":
 			Enrollment e = new Enrollment();
-			e.setEnrollmentId(Integer.parseInt(request.getParameter("enrollmentId")));
+			e.setEnrollmentId(Integer.parseInt(request.getParameter("id")));
 			e.setStudentId(request.getParameter("studentId"));
 			e.setCourseId(request.getParameter("courseId"));
 			e.setCourseGrade(request.getParameter("courseGrade"));
@@ -76,7 +76,7 @@ public class ManageEnrollmentServlet extends HttpServlet {
 				}
 
 			} else if (request.getParameter("ins").equals("true")) {
-				try {
+				try {	
 					EnrollmentService es = new EnrollmentService();
 					es.createEnrollment(e);
 					doGet(request, response);

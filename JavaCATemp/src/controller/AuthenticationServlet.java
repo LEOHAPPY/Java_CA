@@ -80,7 +80,8 @@ public class AuthenticationServlet extends HttpServlet {
 			pp.setLoadTime(0);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("profile", pp);
+			
+			
 			//get dao
 			PersonDAOAdmin pd = DAOFactory.getPersonDAO();
 			String role = "";
@@ -95,7 +96,11 @@ public class AuthenticationServlet extends HttpServlet {
 					for (Person p1 : aList) {
 						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
 							pp.setSelNav("Admins");
+							pp.setRole(role);
 							session.setAttribute("profile", pp);
+							session.setAttribute("role", role);
+							
+							request.setAttribute("idd", pp.getId());
 							RequestDispatcher ra = 
 									request.getRequestDispatcher("/loadData");
 							ra.forward(request, response);
@@ -115,8 +120,9 @@ public class AuthenticationServlet extends HttpServlet {
 					aList= pd.findAllPerson(role);
 					for (Person p1 : aList) {
 						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
-							session = request.getSession();
-							session.setAttribute("userId", username);
+							pp.setRole(role);
+							session.setAttribute("profile", pp);
+							session.setAttribute("role", role);
 							ra = 
 									request.getRequestDispatcher("/studentload");
 							ra.forward(request, response);
@@ -138,8 +144,10 @@ public class AuthenticationServlet extends HttpServlet {
 					aList= pd.findAllPerson(role);
 					for (Person p1 : aList) {
 						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
+							pp.setRole(role);
+							session.setAttribute("profile", pp);
+							session.setAttribute("role", role);
 							session = request.getSession();
-							//session.setAttribute("profile", pp);
 							session.setAttribute("username", request.getParameter("username"));
 							ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
 							ra.forward(request, response);
