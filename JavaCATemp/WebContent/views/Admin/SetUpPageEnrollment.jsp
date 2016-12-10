@@ -23,15 +23,15 @@
 				<tr>
 					<td>enrollmentId</td>
 					<td><c:if test="${!empty param['insert']}">
-							<input type="text" name="newEnrollmentID" value="${param['newEnrollmentID']}" size=15
+							<input type="text" name="id" value="${param['newEnrollmentID']}" size=15
 								maxlength=20 readonly="readonly">
-							<input type="hidden" name="ins" value="false" /> 
+							<input type="hidden" name="ins" value="true" /> 
 							<!-- later in servlet to choose update/insert. [true: insert] [false: update]-->
 						</c:if> 
 						<c:if test="${!empty param['update']}">
-							<input type="text" name="enrollmentId" value="${param['enrollmentId']}" size=15
+							<input type="text" name="id" value="${param['enrollmentId']}" size=15
 								maxlength=20 readonly="readonly">
-							<input type="hidden" name="ins" value="true" />
+							<input type="hidden" name="ins" value="false" />
 						</c:if></td>
 				</tr>
 				<tr>

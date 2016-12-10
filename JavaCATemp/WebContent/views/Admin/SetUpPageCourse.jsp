@@ -41,12 +41,12 @@
 				</tr>
 				<tr>
 					<td>courseStart</td>
-					<td><input type="text" name="courseStart" value="${param['courseStart']}"
+					<td><input type="date" name="courseStart" value="${param['courseStart']}"
 						size=15 maxlength=20></td>
 				</tr>
 				<tr>
 					<td>courseEnd</td>
-					<td><input type="text" name="courseEnd" value="${param['courseEnd']}"
+					<td><input type="date" name="courseEnd" value="${param['courseEnd']}"
 						size=15 maxlength=20></td>
 				</tr>
 				<tr>
@@ -63,7 +63,8 @@
 					<td>courseDesc</td>
 					<td><input type="text" name="courseDesc" value="${param['courseDesc']}"
 						size=15 maxlength=20></td>
-				</tr>
+<%-- 					<td><textarea rows="10" cols="15" name="courseDesc">"${param['courseDesc']}"</textarea> </td>
+ --%>				</tr>
 			</table>
 		</center>
 		<input type="submit" value="Submit"> <input type="reset"

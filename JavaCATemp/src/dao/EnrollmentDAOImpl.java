@@ -129,6 +129,12 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
 
 	@Override
 	public void create(Connection conn, Enrollment valueObject) throws SQLException {
+		try {
+			openConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String sql = "";
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -152,6 +158,7 @@ public class EnrollmentDAOImpl implements EnrollmentDAO{
         } finally {
             if (stmt != null)
                 stmt.close();
+            closeConnection();
         }
 
 		

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DAOException;
+import dao.DAOFactory;
 import dao.PersonDAO;
 import dao.PersonDAOAdmin;
 import model.Person;
@@ -20,7 +21,7 @@ import model.Person;
 /**
  * Servlet implementation class AuthenticationServlet
  */
-@WebServlet("/authenServletOlder")
+@WebServlet("/authenServlet")
 
 public class AuthenticationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -58,95 +59,106 @@ public class AuthenticationServlet extends HttpServlet {
 
 	private void authentication(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-
+		// get input
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", username);
+		String error = "please input username/password";
 
-		Person p = new Person();
-		p.setId(username);
-		p.setPw(password);
-		p.setLoadTime(0);
-		String error="Your UserName and/or Password is incorrect!";
-		
-		if(username.equals(null) && password.equals(null))
-			error="Please Fill the Blank";
-		else if(username.equals(null))
-			error="Please Enter the user name.";
-		else if(password.equals(null))
-			error="Please Enter the password.";
-
-//		RequestDispatcher ra = request.getRequestDispatcher("/views/Login.jsp");
-//		request.setAttribute("error", error);
-		RequestDispatcher ra;
-		char firstChar = username.trim().charAt(0);
-		// Identification
-		if (firstChar == 'S' || firstChar == 's') {
-			p.setRole("Students");
-
-			PersonDAO ad = dao.DAOFactory.getStudentDAO();
-			ArrayList<Person> aList;
-			try {
-				aList = ad.findAllPerson();
-				request.setAttribute("aList", aList);
-				for (Person p1 : aList) {
-					if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
-						ra = request.getRequestDispatcher("/studentload");
-						ra.forward(request, response);
-						return;
-					}
-				}
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} else if (firstChar == 'L' || firstChar == 'l') {
-			p.setRole("Lectures");
-			PersonDAO ad = dao.DAOFactory.getLectureDAO();
-			ArrayList<Person> aList;
-			try {
-				aList = ad.findAllPerson();
-				request.setAttribute("aList", aList);
-				for (Person pp : aList) {
-					if (username.equals(pp.getId()) && password.equals(pp.getPw())) {
-						session.setAttribute("profile", pp);
-						session.setAttribute("username", request.getParameter("username"));
-						ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
-						ra.forward(request, response);
-						return;
-					}
-				}
-			} catch (DAOException e) {
-				e.printStackTrace();
-			}
-
-		} else if (firstChar == 'A' || firstChar == 'a') {
-			p.setRole("Admins");
-			//using a loop to check the identification
-			PersonDAO ad = dao.DAOFactory.getAdminDao();
-			ArrayList<Person> aList;
-			try {
-				aList = ad.findAllPerson();
-				request.setAttribute("aList", aList);
-				for (Person pp : aList) {
-					if (username.equals(pp.getId()) && password.equals(pp.getPw())) {
-						session.setAttribute("profile", pp);
-						session.setAttribute("username", request.getParameter("username"));
-						ra = request.getRequestDispatcher("/loadData");
-						ra.forward(request, response);
-						return;
-					}
-				}
-			} catch (DAOException e) {
-				e.printStackTrace();
-			}
-		}
-		else {
-			request.setAttribute("error", null);
-			ra = request.getRequestDispatcher("/views/Login.jsp");
+		// validate
+		if (username == "" || password == "") {
+			System.out.print(error);
+			RequestDispatcher ra = request.getRequestDispatcher("/views/Login.jsp");
 			ra.forward(request, response);
+		} else {
+			// get first Char of username
+			char firstChar = username.trim().toUpperCase().charAt(0);
+			// identification
+			//record username and password
+			Person pp = new Person();
+			pp.setId(username);
+			pp.setPw(password);
+			pp.setLoadTime(0);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("profile", pp);
+			//get dao
+			PersonDAOAdmin pd = DAOFactory.getPersonDAO();
+			String role = "";
+			ArrayList<Person> aList;
+			
+			switch (firstChar) {
+			case 'A':
+				role = "Admins";
+				try {
+					
+					aList= pd.findAllPerson(role);
+					for (Person p1 : aList) {
+						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
+							pp.setSelNav("Admins");
+							session.setAttribute("profile", pp);
+							RequestDispatcher ra = 
+									request.getRequestDispatcher("/loadData");
+							ra.forward(request, response);
+							//return;
+						}
+					}
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				RequestDispatcher ra = request.getRequestDispatcher("/views/Login.jsp");
+				ra.forward(request, response);
+				break;
+			case 'S':
+				role = "Students";
+				try {
+					aList= pd.findAllPerson(role);
+					for (Person p1 : aList) {
+						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
+							session = request.getSession();
+							session.setAttribute("userId", username);
+							ra = 
+									request.getRequestDispatcher("/studentload");
+							ra.forward(request, response);
+							//return;
+						}
+					}
+					//if not match still in login 
+					ra = request.getRequestDispatcher("/views/Login.jsp");
+					ra.forward(request, response);
+					
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 'L':
+				role = "Lectures";
+				try {
+					aList= pd.findAllPerson(role);
+					for (Person p1 : aList) {
+						if (username.equals(p1.getId()) && password.equals(p1.getPw())) {
+							session = request.getSession();
+							//session.setAttribute("profile", pp);
+							session.setAttribute("username", request.getParameter("username"));
+							ra = request.getRequestDispatcher("/lecturer?value=coursesTaught");
+							ra.forward(request, response);
+							return;
+						}
+					}
+				    ra = request.getRequestDispatcher("/views/Login.jsp");
+					ra.forward(request, response);
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			default:
+				System.out.print(error);
+				ra = request.getRequestDispatcher("/views/Login.jsp");
+				ra.forward(request, response);
+				break;
+			}
 		}
 
 	}
