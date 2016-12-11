@@ -75,7 +75,7 @@ public class ManageCourseServlet extends HttpServlet {
 			c.setCourseCredit(Integer.parseInt(request.getParameter("courseCredit")));
 			c.setLectureId(request.getParameter("lecturerId"));
 			c.setCourseMaxSize(Integer.parseInt(request.getParameter("courseMaxSize")));
-			c.setCourseDesc(request.getParameter("CourseDesc"));
+			c.setCourseDesc(request.getParameter("courseDesc"));
 			if (request.getParameter("ins").equals("false")) {
 				try {
 					CourseService cs = new CourseService();
