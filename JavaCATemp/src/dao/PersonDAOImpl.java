@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,6 +15,8 @@ public class PersonDAOImpl implements PersonDAOAdmin {
 	private static final String dbUrl = "jdbc:mysql://localhost:3306/jvdb";
 	private static final String dbUserName = "root";
 	private static final String dbPassword = "password";
+	private Statement stmt;
+	private int noOfRecords;
 
 	public PersonDAOImpl() {
 		
@@ -201,5 +204,64 @@ public class PersonDAOImpl implements PersonDAOAdmin {
 			} catch (Exception e) {
 			}
 		}
+	}
+
+
+	@Override
+	public ArrayList<Person> findAllPerson(int offset, int noOfRecords,String role) {
+		ArrayList<Person> items = new ArrayList<Person>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+//		String selectSql = "SELECT * FROM "+role+";";
+		
+		String selectSql = "select SQL_CALC_FOUND_ROWS * from "+role+" limit "
+	             + offset + ", " + noOfRecords;
+		
+		System.out.println(role);
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+			stmt = conn.createStatement();
+			Logger.getLogger(getClass().getName()).log(Level.INFO,
+					"Executing select: " + selectSql);
+			ResultSet rs = stmt.executeQuery(selectSql);
+			while (rs.next()) {
+				Person oneP = new Person();
+				oneP.setId(rs.getString("id"));
+				oneP.setName(rs.getString("name"));
+				oneP.setPw(rs.getString("pw"));
+				oneP.setEmail(rs.getString("email"));
+				oneP.setLogin(rs.getString("login"));
+				items.add(oneP);
+				System.out.println(oneP);
+			}
+			rs.close();
+			rs = stmt.executeQuery("SELECT FOUND_ROWS()");
+	        if(rs.next())
+	            this.noOfRecords = rs.getInt(1);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }finally
+	    {
+	        try {
+	            if(stmt != null)
+	                stmt.close();
+	            if(conn != null)
+	                conn.close();
+	            } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return items;
+	}
+
+
+	@Override
+	public int getNoOfRecords() {
+		return noOfRecords;
 	}
 }

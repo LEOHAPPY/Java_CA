@@ -264,7 +264,10 @@ public class LectureDAOImpl implements PersonDAO {
 						valueObject.setStudentId(result2.getString("id"));
 						valueObject.setStudentName(result2.getString("name"));
 						valueObject.setStudentEmail(result2.getString("email"));
-						valueObject.setStudentGrade(result1.getString("CourseGrade"));
+						if(result1.getString("CourseGrade")=="notset")
+							valueObject.setStudentGrade(null);
+						else
+							valueObject.setStudentGrade(result1.getString("CourseGrade"));
 						items.add(valueObject);
 					}
 				}

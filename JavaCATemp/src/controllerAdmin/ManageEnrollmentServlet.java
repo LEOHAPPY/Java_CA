@@ -74,7 +74,17 @@ public class ManageEnrollmentServlet extends HttpServlet {
 			e.setEnrollmentId(Integer.parseInt(request.getParameter("id")));
 			e.setStudentId(request.getParameter("studentId"));
 			e.setCourseId(request.getParameter("courseId"));
-			e.setCourseGrade(request.getParameter("courseGrade"));
+			String grade=request.getParameter("courseGrade");
+			System.out.println(grade);
+			if(grade.equals("A")  || grade.equals("B") || grade.equals("C") ||
+					grade.equals("D") || grade.equals("E") || grade.equals("F") )
+				
+				e.setCourseGrade(request.getParameter("courseGrade"));
+			else
+			{
+				e.setCourseGrade("notset");
+			}
+			
 			if (request.getParameter("ins").equals("false")) {
 				try {
 					EnrollmentService es = new EnrollmentService();

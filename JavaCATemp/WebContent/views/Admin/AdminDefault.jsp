@@ -27,17 +27,17 @@
 	<br />
 	<br />
 
-	<table class="borderAll">
+	<table class="borderAll"  border="1px" >
 		<tr>
 			<th>#</th>
 			<th>ID</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Password</th>
-			<th>Edit    Delete</th>
+			<th>Edit  Delete</th>
 		</tr>
 
-		<c:forEach var="person" items="${requestScope.aList}"
+		<c:forEach var="person" items="${requestScope.person}"
 				varStatus="status">
                 <tr class="${status.index%2==0?'even':'odd'}">
                     <td class="nowrap">${status.index + 1}</td>
@@ -59,7 +59,7 @@
                         </c:url>
                         <a href="${updurl}">Edit</a>
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp
                        <c:if test="${sessionScope.iddd ne person.id}">
                         <!-- Delete -->
 	                        <c:url var="delurl" scope="page"
@@ -72,6 +72,42 @@
                 </tr>
             </c:forEach>
 	</table>
+	<table border="1" cellpadding="5" cellspacing="5" align=center>
+		<tr>
+			<%--For displaying Previous link except for the 1st page --%>
+			<c:if test="${currentPage != 1}">
+				<td><a href="loadData?page=${currentPage - 1}">Previous</a></td>
+			</c:if>
 
+			<%--For displaying Page numbers. 
+    The when condition does not display a link for the current page--%>
+
+
+			<c:forEach begin="1" end="${noOfPages}" var="i">
+				<c:choose>
+					<c:when test="${currentPage eq i}">
+						<td>${i}</td>
+					</c:when>
+
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${i eq 2}">
+								<td><a href="../loadData?page=${i}">${i}</a></td>
+							</c:when>
+							<c:otherwise>
+								<td><a href="loadData?page=${i}">${i}</a></td>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+
+
+			<%--For displaying Next link --%>
+			<c:if test="${currentPage lt noOfPages}">
+				<td><a href="loadData?page=${currentPage + 1}">Next</a></td>
+			</c:if>
+		</tr>
+	</table>
 </body>
 </html>

@@ -123,7 +123,7 @@ private void process(HttpServletRequest request, HttpServletResponse response) t
 		newEnroll.setEnrollmentId(lEnrollID+1);		
 		newEnroll.setStudentId(sId);
 		newEnroll.setCourseId(cId);
-		newEnroll.setCourseGrade(null);				
+		newEnroll.setCourseGrade("notset");				
 		es.createEnrollment(newEnroll);
 		
 	}

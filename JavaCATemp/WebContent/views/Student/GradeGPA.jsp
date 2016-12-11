@@ -29,17 +29,17 @@
             </tr>
             
  <c:forEach var="grade" items="${grade}" varStatus="status">
-                <tr class="${status.index%2==0?'even':'odd'}">
-                     <td class="nowrap">${status.index + 1}</td>
-                    <td class="nowrap">${grade.courseId}</td>
-                    <td class="nowrap">${grade.courseName}</td>
-                    <td class="nowrap">${grade.start}</td>
-                    <td class="nowrap">${grade.end}</td>
-                    <td class="nowrap">${grade.courseCredit}</td>
-                    <td class="nowrap">${grade.courseGrade}</td>                   
-                    
-                </tr>
-            </c:forEach>
+			<tr class="${status.index%2==0?'even':'odd'}">
+				<td class="nowrap">${status.index + 1}</td>
+				<td class="nowrap">${grade.courseId}</td>
+				<td class="nowrap">${grade.courseName}</td>
+				<td class="nowrap">${grade.start}</td>
+				<td class="nowrap">${grade.end}</td>
+
+				<td class="nowrap">${grade.courseCredit}</td>
+				<td class="nowrap">${grade.courseGrade}</td>
+			</tr>
+		</c:forEach>
             
             <tr><td><center>GPA</center></td>
             <td>${gpa}</td>

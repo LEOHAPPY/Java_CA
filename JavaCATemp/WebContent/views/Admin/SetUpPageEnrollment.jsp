@@ -12,7 +12,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>set up page for CRUD</p>
 	<!-- Add -->
 	<!-- Edit -->
 
@@ -81,7 +80,7 @@
 									<option value="D">D</option>
 									<option value="E">E</option>
 									<option value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
 
@@ -93,7 +92,7 @@
 									<option value="D">D</option>
 									<option value="E">E</option>
 									<option value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
 
@@ -105,7 +104,7 @@
 									<option value="D">D</option>
 									<option value="E">E</option>
 									<option value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
 
@@ -117,7 +116,7 @@
 									<option selected="selected" value="D">D</option>
 									<option value="E">E</option>
 									<option value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
 
@@ -129,7 +128,7 @@
 									<option value="D">D</option>
 									<option selected="selected" value="E">E</option>
 									<option value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
 
@@ -141,10 +140,10 @@
 									<option value="D">D</option>
 									<option value="E">E</option>
 									<option selected="selected" value="F">F</option>
-									<option value=""></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
-
+						
 						<c:when test="${empty param['courseGrade']}">
 							<td><select name="courseGrade">
 									<option value="A">A</option>
@@ -152,10 +151,23 @@
 									<option value="C">C</option>
 									<option value="D">D</option>
 									<option value="E">E</option>
-									<option value="F">F</option>
-									<option selected="selected" value=""></option>
+									<option selected="selected" value="notset"></option>
+									<option value="notset"></option>
 							</select></td>
 						</c:when>
+
+						<c:when test="${param['courseGrade'] eq 'notset'}">
+							<td><select name="courseGrade">
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									<option value="F">F</option>
+									<option selected="selected" value="notset"></option>
+							</select></td>
+						</c:when>
+						
 					</c:choose>
 				</tr>
 			</table>

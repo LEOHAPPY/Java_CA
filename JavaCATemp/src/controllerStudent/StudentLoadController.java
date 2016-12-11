@@ -74,7 +74,7 @@ public class StudentLoadController extends HttpServlet {
 		
 		for (Enrollment e : courseList) {			
 			
-			if(e.getStudentId().equals(sId) && e.getCourseGrade()==null){				
+			if(e.getStudentId().equals(sId) && ((e.getCourseGrade()==null)  || (e.getCourseGrade().equals("notset")))){				
 				Course c=cs.findCourseById(e.getCourseId());
 				
 				data.add(c);

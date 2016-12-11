@@ -39,7 +39,10 @@ public class LecturerService {
 		ArrayList<Enrollment> eList = (ArrayList<Enrollment>) session.getAttribute("eList");
 		EnrollmentDAO ed= DAOFactory.getEnrollmentDao();
 		for (Enrollment enrollment : eList) {
-			enrollment.setCourseGrade(request.getParameter(String.valueOf(enrollment.getEnrollmentId())));
+			if((request.getParameter(String.valueOf(enrollment.getEnrollmentId()))=="notset"))
+					enrollment.setCourseGrade("notset");
+			else
+				enrollment.setCourseGrade(request.getParameter(String.valueOf(enrollment.getEnrollmentId())));
 			ed.updateEnrollment(enrollment);
 		}
 	}

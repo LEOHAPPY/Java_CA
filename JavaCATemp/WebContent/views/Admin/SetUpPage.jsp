@@ -13,7 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>set up page for CRUD</p>
 	<!-- Add --><!-- Edit -->
 	
 	<form action="/WebShowcase/modifyProcess" method=post>

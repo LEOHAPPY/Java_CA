@@ -14,23 +14,17 @@
 			<td><%@ include file="SamePart.jsp"%></td>
 		</tr>
 	</table>
-
-	<!-- add -->
-	<!--<c:url var="url" scope="page" value="/views/Admin/SetUpPageCourse.jsp">
-		<c:param name="courseId" value="" />
-		<c:param name="courseName" value="" />
-		<c:param name="courseStart" value="" />
-		<c:param name="courseEnd" value="" />
-		<c:param name="courseCredit" value="" />
-		<c:param name="courseMaxSize" value="" />
-		<c:param name="courseDesc" value="" />
+	<c:url var="addurl" scope="page"
+		value="/views/Admin/SetUpPageCourse.jsp">
+		<c:param name="newCourseID" value="${sessionScope.newCourseID }" />
 		<c:param name="insert" value="true" />
 	</c:url>
-	<a href="${url}">Add</a>
+	<a href="${addurl}">Add</a>
+	
 	<br />
 	<br />
--->
-	<table style="float: right" border="1" class="borderAll">
+
+	<table style="float: left" class="borderAll" border="1px">
 		<tr>
 			<th>#</th>
 			<th>courseId</th>
@@ -71,19 +65,19 @@
 						<c:param name="courseId" value="${course.courseId}" />
 					</c:url> <a href="${delurl}">Delete</a></td>
  -->
-					<form method="POST" action="/WebShowcase/MCServlet/Delete" >
-						<input type="submit" value="Delete" />
-						<input type="hidden" name="courseId" value="${course.courseId}"  /> 
-					</form>
+					<form method="POST" action="/WebShowcase/MCServlet/Delete">
+						<input type="submit" value="Delete" /> <input type="hidden"
+							name="courseId" value="${course.courseId}" />
+					</form> 
+					<%-- <c:url var="delurl" scope="page"
+								value="/MCServlet/Delete">
+	                            <c:param name="courseId" value="${course.courseId}" />
+	                        </c:url>
+	                        <a href="${delurl}">Delete</a> --%>
 			</tr>
 		</c:forEach>
 
 	</table>
-	<c:url var="addurl" scope="page"
-		value="/views/Admin/SetUpPageCourse.jsp">
-		<c:param name="newCourseID" value="${sessionScope.newCourseID }" />
-		<c:param name="insert" value="true" />
-	</c:url>
-	<a href="${addurl}">Add</a>
+
 </body>
 </html>

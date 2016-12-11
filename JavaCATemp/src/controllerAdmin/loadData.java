@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-
 import dao.DAOException;
-import dao.DAOFactory;
 import dao.PersonDAOAdmin;
 import model.Person;
 
@@ -65,7 +62,7 @@ public class loadData extends HttpServlet {
 		}
 	}
 
-	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws DAOException, ServletException, IOException {
 		// get 
 		HttpSession session = request.getSession();
 		Person pp = (Person) session.getAttribute("profile");
@@ -73,24 +70,25 @@ public class loadData extends HttpServlet {
 
 		//Person pp2 = (Person) session2.getAttribute("profile");
 		String selNav = pp.getSelNav();
-
-		PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();
-		ArrayList<Person> aList = ad.findAllPerson(selNav);
-		for (Person p : aList) {
-			request.setAttribute("aList", aList);
-		}
-		//pp.setLoadTime(pp.getLoadTime() + 1);
 		
+		int page = 1;
+        int recordsPerPage = 5;
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
+        PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();
+        String role=(String) session.getAttribute("role");
+        System.out.println(role);
+        ArrayList<Person> list = ad.findAllPerson((page-1)*recordsPerPage,
+                recordsPerPage,selNav);
+        int noOfRecords =ad.getNoOfRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+        request.setAttribute("person", list);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+			
 		RequestDispatcher ra1 = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
-		try {
-			ra1.forward(request, response);
-		} catch (ServletException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		ra1.forward(request, response);
+		
 //		
 //		if (pp.getLoadTime() == 0) {
 //			PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();

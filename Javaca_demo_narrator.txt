@@ -1,0 +1,52 @@
+For Admin 
+	after log in can manage Admins/S/L/C/E
+	the details is
+	1\ cannot delete himself
+	now I will show you how to add edit and delete
+
+	ASL is the same they share same controllers including dao daoImpl and views which make maitenanice simple.
+
+	how we made this? from Model layer,in our design ASL all inherent from people, which model have five attributes that they are in commom;from Dao, we create peopleDao, and peopleDaoImp, when we use then 
+
+	student choose a course lecture can know......
+
+[Architectures:]
+Model:	
+	1\use inheritence to build model and use generalize peopleDao to call other three daos.
+	
+	People [id name email pw]
+	Admin 	extend People
+	Lectuer extend People
+	Stuent 	extend People
+ 	
+	AdminDaoImp implements PeopeoDao 
+	StudentImp  implements PeopeoDao 
+	LectureImp  implements PeopeoDao  
+
+	2\add one share all
+	People PeopeoDao PeopeoDaoImp(role) 
+	
+	Default.jsp
+			setRoleServlet
+	loadDataServlet
+	setupServlet
+	processServlet
+	deleteServlet
+
+V/C:
+	front contrller
+		authentication:autenticate/record session	(login.jsp)
+		logout:kill sessions()				(home.jsp)
+	Admin use case controllers()				(Admin.jsp)
+	Student use case controllers				(Students.jsp)
+	Lectuer use case controllers				(Lectuer.jsp)
+	
+
+[Tech]
+Email
+Pagination
+jQuery validation
+
+	
+ 	
+	

@@ -14,7 +14,7 @@
 	</table>
 
 	<!-- content -->
-		<table style="float: right" width="70%" border="1">
+		<table style="float: left" width="70%" border="1">
 		<tr><th>Course ID</th><th>Course Name</th><th>Course Start</th><th>Course MaxSize</th><th>&nbsp;</th><th>&nbsp;</th></tr>
 		
 		<c:forEach var="course"  items="${requestScope.cList}" varStatus="Status"  >

@@ -15,4 +15,9 @@ public interface PersonDAOAdmin {
 	public void updatePerson(Person hero, String role) throws DAOException;
 
 	public void deletePerson(Person hero, String role) throws DAOException;
+
+	public ArrayList<Person> findAllPerson(
+            int offset, 
+            int noOfRecords,String role);
+	public int getNoOfRecords();
 }

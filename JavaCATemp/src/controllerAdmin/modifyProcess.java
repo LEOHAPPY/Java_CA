@@ -111,10 +111,10 @@ public class modifyProcess extends HttpServlet {
 		}else{
 			pdao.updatePerson(p,role);
 		}
-		//refresh data and go to AdminDefault 
-		ArrayList<Person> aList = pdao.findAllPerson(role);
-		request.setAttribute("aList", aList);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
+//		//refresh data and go to AdminDefault 
+//		ArrayList<Person> aList = pdao.findAllPerson(role);
+//		request.setAttribute("aList", aList);
+		RequestDispatcher rd = request.getRequestDispatcher("/AdminNav/"+role);
 		try {
 			rd.forward(request, response);
 		} catch (ServletException e) {

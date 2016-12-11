@@ -76,9 +76,13 @@ public class GradeAndGPAControl extends HttpServlet {
 		double totalMark = 0;
 		int totalgrade = 0;
 		for (Enrollment e : courseList) {
-			if (e.getStudentId().equals(sId) && e.getCourseGrade() != null) {
+			if(e.getCourseGrade()!=null){
+			if (e.getStudentId().equals(sId) && (!e.getCourseGrade().equals("notset"))) {
 				Course c = cs.findCourseById(e.getCourseId());
-
+				System.out.println((e.getCourseGrade()));
+				System.out.println("notset");
+				
+				System.out.println((!e.getCourseGrade().equals("notset")));
 				GradeSession gs = new GradeSession();
 				gs.setCourseId(c.getCourseId());
 				gs.setCourseName(c.getCourseName());
@@ -120,7 +124,7 @@ public class GradeAndGPAControl extends HttpServlet {
 				totalgrade += c.getCourseCredit();
 			}
 		}
-		
+		}
 		double gpa = totalMark / totalgrade;
 		
 		request.setAttribute("grade", data);

@@ -37,8 +37,8 @@
 <%--                     <td class="nowrap">${course.studentId}</td> --%>
                     <td class="nowrap">${course.studentName}</td>
                     <td class="nowrap">${course.studentEmail}</td>
-                    <td class="nowrap">${empty course.studentGrade? '-': course.studentGrade}</td>
-                    <td class="nowrap">${empty course.studentGrade? 'On-going': 'Completed'}</td>
+                    <td class="nowrap">${(course.studentGrade eq "notset")? '-': course.studentGrade}</td>
+                    <td class="nowrap">${(course.studentGrade eq "notset")? 'On-going': 'Completed'}</td>
                 </tr>
             </c:forEach>
             </tbody>

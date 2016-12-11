@@ -36,7 +36,13 @@
                     <td class="nowrap">${grade.studentId}</td>
                     <td class="nowrap">${grade.studentName}</td>
                     <td class="nowrap">${grade.courseCredit}</td>
-                    <td class="nowrap">${grade.courseGrade}</td>                   
+                    <c:if test="${grade.courseGrade eq 'notset'}">
+                    	<td class="nowrap"></td>
+                    </c:if>
+                    <c:if test="${grade.courseGrade ne 'notset'}">
+                    	<td class="nowrap">${grade.courseGrade}</td>
+                    </c:if>
+                                       
                     
                 </tr>
             </c:forEach>
