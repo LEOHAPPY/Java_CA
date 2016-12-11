@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,7 +34,7 @@
 			<th>Name</th>
 			<th>Email</th>
 			<th>Password</th>
-			<th>Edit Delete</th>
+			<th>Edit    Delete</th>
 		</tr>
 
 		<c:forEach var="person" items="${requestScope.aList}"
@@ -57,18 +58,16 @@
                             <c:param name="update" value="false" />
                         </c:url>
                         <a href="${updurl}">Edit</a>
-                        
+
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <%-- <c:if test="${idd}.equls(${person.id})">  --%>
+                       <c:if test="${sessionScope.iddd ne person.id}">
                         <!-- Delete -->
 	                        <c:url var="delurl" scope="page"
 								value="/deleteProcess">
 	                            <c:param name="id" value="${person.id}" />
 	                        </c:url>
 	                        <a href="${delurl}">Delete</a>
-             <%--            </c:if> --%>
-                        
-                        
+                       </c:if> 
                     </td>
                 </tr>
             </c:forEach>

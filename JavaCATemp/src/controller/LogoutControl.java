@@ -46,7 +46,7 @@ public class LogoutControl extends HttpServlet {
 		 session.setAttribute("profile",null);
 		 session.setAttribute("role",null);
 		 System.out.println("Clear Session");
-		 RequestDispatcher rd = request.getRequestDispatcher("/views/Login.jsp");
+		 RequestDispatcher rd = request.getRequestDispatcher("/HomePage.jsp");
 		 rd.forward(request, response);
 	}
 }

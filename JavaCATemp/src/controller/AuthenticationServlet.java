@@ -100,7 +100,7 @@ public class AuthenticationServlet extends HttpServlet {
 							session.setAttribute("profile", pp);
 							session.setAttribute("role", role);
 							
-							request.setAttribute("idd", pp.getId());
+							session.setAttribute("iddd", pp.getId());
 							RequestDispatcher ra = 
 									request.getRequestDispatcher("/loadData");
 							ra.forward(request, response);
