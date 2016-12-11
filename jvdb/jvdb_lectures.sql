@@ -38,7 +38,7 @@ CREATE TABLE `lectures` (
 
 LOCK TABLES `lectures` WRITE;
 /*!40000 ALTER TABLE `lectures` DISABLE KEYS */;
-INSERT INTO `lectures` VALUES ('L0001','Choo Zhi Min','issczm@nus.edu.sg','abcd1234!','Zhimin'),('L0002','Derek Kiong','isskbk@nus.edu.sg','abcd1234!','Derek'),('L0003','Esther Tan','isstane@nus.edu.sg','abcd1234!','Esther'),('L0004','Felicitas Seah','isssjhf@nus.edu.sg','abcd1234!','Fel'),('L0005','Venkat','issrv@nus.edu.sg','abcd1234!','Venkat'),('L0006','Yunghans Irawan','issyi@nus.edu.sg','abcd1234!','Hans'),('L0007','Lee Boon Kee','isslbk@nus.edu.sg','abcd1234!','BoonKee');
+INSERT INTO `lectures` VALUES ('L0001','Chong Zhi Ming','issczm@nus.edu.sg','abcd1234!','null'),('L0002','Derek Kiong','isskbk@nus.edu.sg','abcd1234!','Derek'),('L0003','Esther Tan','isstane@nus.edu.sg','abcd1234!','Esther'),('L0004','Felicitas Seah','isssjhf@nus.edu.sg','abcd1234!','Fel'),('L0005','Venkat','issrv@nus.edu.sg','abcd1234!','Venkat'),('L0006','Yunghans Irawan','issyi@nus.edu.sg','abcd1234!','Hans'),('L0007','Lee Boon Kee','isslbk@nus.edu.sg','abcd1234!','null');
 /*!40000 ALTER TABLE `lectures` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-06  9:12:35
+-- Dump completed on 2016-12-11 17:09:32

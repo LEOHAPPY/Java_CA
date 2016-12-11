@@ -38,7 +38,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES ('A0001','Suriya Priya','issspa@nus.edu.sg','abcd1234!','Suriya'),('A0002','NUS ISS SA43','isstraining@nus.edu.sg','abcd1234!','SA43');
+INSERT INTO `admins` VALUES ('A0001','Suriya Priya','issspa@nus.edu.sg','abcd1234!','null'),('A0002','NUS ISS SA43','isstraining@nus.edu.sg','abcd1234!','null'),('A0003','Leo','leochao.happy@gmail','abcd1234!','null');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-06  9:12:35
+-- Dump completed on 2016-12-11 17:09:32
