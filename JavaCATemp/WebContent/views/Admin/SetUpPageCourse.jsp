@@ -60,11 +60,33 @@
 						size=15 maxlength=20></td>
 				</tr>
 				<tr>
+					<td>lecturerId</td>
+					<td><c:if test="${!empty param['insert']}">
+							<select name="lecturerId">
+								<c:forEach var="lecturer" items="${sessionScope.lListforCourse}"
+									varStatus="status">
+									<option value="${lecturer.id }">${lecturer.id }</option>
+								</c:forEach>
+							</select>
+						</c:if> <c:if test="${!empty param['update']}">
+							<select name="lecturerId">
+								<c:forEach var="lecturer" items="${sessionScope.lListforCourse}"
+									varStatus="status">
+									<option value="${lecturer.id }">${lecturer.id }</option>
+								</c:forEach>
+							</select>
+							<p>Current Lecturer: ${param['lectureId']}</p>
+						</c:if></td>
+				</tr>
+				<tr>
 					<td>courseDesc</td>
-					<td><input type="text" name="courseDesc" value="${param['courseDesc']}"
-						size=15 maxlength=20></td>
-<%-- 					<td><textarea rows="10" cols="15" name="courseDesc">"${param['courseDesc']}"</textarea> </td>
- --%>				</tr>
+					<td><textarea style="resize: none" name="courseDesc" rows="8"
+							cols="30">${param['courseDesc']}</textarea></td>
+
+					<%-- 					<td><textarea rows="10" cols="15" name="courseDesc">"${param['courseDesc']}"</textarea> </td>
+ --%>
+				</tr>
+ 
 			</table>
 		</center>
 		<input type="submit" value="Submit"> <input type="reset"

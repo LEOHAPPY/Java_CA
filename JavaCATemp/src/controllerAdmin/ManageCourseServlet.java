@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.PersonDAO;
 import exception.NotFoundException;
 import model.Course;
+import model.Person;
 import service.CourseService;
 
 @WebServlet({"/MCServlet","/MCServlet/*"})
@@ -29,6 +33,8 @@ public class ManageCourseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			PersonDAO lDao = DAOFactory.getLectureDAO();
+			ArrayList<Person> lListforCourse = lDao.findAllPerson();
 			CourseService cs = new CourseService();
 			ArrayList<Course> cList = cs.findAllCourses();
 			request.setAttribute("cList", cList);
@@ -47,9 +53,10 @@ public class ManageCourseServlet extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("newCourseID", newCourseID);
+			session.setAttribute("lListforCourse", lListforCourse);
 			RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/ManageCourse.jsp");
 			ra.forward(request, response);
-		} catch (NotFoundException | ClassNotFoundException | SQLException e) {
+		} catch ( NotFoundException | DAOException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -66,6 +73,7 @@ public class ManageCourseServlet extends HttpServlet {
 			c.setCourseStart(Date.valueOf(request.getParameter("courseStart")));
 			c.setCourseEnd(Date.valueOf(request.getParameter("courseEnd")));
 			c.setCourseCredit(Integer.parseInt(request.getParameter("courseCredit")));
+			c.setLectureId(request.getParameter("lecturerId"));
 			c.setCourseMaxSize(Integer.parseInt(request.getParameter("courseMaxSize")));
 			c.setCourseDesc(request.getParameter("CourseDesc"));
 			if (request.getParameter("ins").equals("false")) {

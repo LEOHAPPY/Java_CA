@@ -2,6 +2,7 @@ package controllerAdmin;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.PersonDAO;
 import exception.NotFoundException;
 import model.Course;
 import model.Enrollment;
+import model.Person;
+import service.CourseService;
 import service.EnrollmentService;
 
 @WebServlet({"/MEServlet","/MEServlet/*"})
@@ -31,25 +37,29 @@ public class ManageEnrollmentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			CourseService cs = new CourseService();
+			ArrayList<Course> cListForEnrollment = cs.findAllCourses();
 			EnrollmentService es = new EnrollmentService();
 			ArrayList<Enrollment> eList = es.findEnrollment();
+			PersonDAO sdao = DAOFactory.getStudentDAO();
+			ArrayList<Person> sListForEnrollment = sdao.findAllPerson();
 			request.setAttribute("eList", eList);
-			
-			int newEnrollmentID=1;
+
+			int newEnrollmentID = 1;
 			for (Enrollment enrollment : eList) {
-				int courseID= enrollment.getEnrollmentId();
+				int courseID = enrollment.getEnrollmentId();
 				courseID++;
-				if(newEnrollmentID<courseID)
-				{
-					newEnrollmentID=courseID;
+				if (newEnrollmentID < courseID) {
+					newEnrollmentID = courseID;
 				}
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("newEnrollmentID", newEnrollmentID);
-			
+			session.setAttribute("cListForEnrollment", cListForEnrollment);
+			session.setAttribute("sListForEnrollment", sListForEnrollment);
 			RequestDispatcher ra = request.getRequestDispatcher("/views/Admin/ManageEnrollment.jsp");
 			ra.forward(request, response);
-		} catch (NotFoundException e) {
+		} catch (NotFoundException | ClassNotFoundException | SQLException | DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -39,6 +39,7 @@
 			<th>courseEnd</th>
 			<th>courseCredit</th>
 			<th>courseMaxSize</th>
+			<th>lecturerId</th>
 			<th>Edit Delete</th>
 		</tr>
 
@@ -52,6 +53,7 @@
 				<td class="nowrap">${course.courseEnd}</td>
 				<td class="nowrap">${course.courseCredit}</td>
 				<td class="nowrap">${course.courseMaxSize}</td>
+				<td class="nowrap">${course.lectureId}</td>
 				<!-- Edit -->
 				<td class="nowrap"><c:url var="updurl" scope="page"
 						value="/views/Admin/SetUpPageCourse.jsp">
@@ -60,6 +62,7 @@
 						<c:param name="courseStart" value="${course.courseStart}" />
 						<c:param name="courseEnd" value="${course.courseEnd}" />
 						<c:param name="courseCredit" value="${course.courseCredit}" />
+						<c:param name="lectureId" value="${course.lectureId}" />
 						<c:param name="courseMaxSize" value="${course.courseMaxSize}" />
 						<c:param name="courseDesc" value="${course.courseDesc}" />
 						<c:param name="update" value="true" />
