@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -160,6 +163,10 @@
 		<input type="submit" value="Submit"> <input type="reset"
 			value="Reset">
 	</form>
+	
+	<script>
+	$( "#myTable" ).validate();
+	</script>
 
 </body>
 </html>

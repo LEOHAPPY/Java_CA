@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,16 +19,16 @@
 
 		<tr>
 			<td width="50%">
-				<form method="POST" action="/WebShowcase/authenServlet">
+				<form method="POST" action="/WebShowcase/authenServlet" id ="loginForm">
 					<center>
 						<table>
 							<tr>
 								<td>Username:</td>
-								<td><input type="text" name="username" /></td>
+								<td><input type="text" name="username" required /></td>
 							</tr>
 							<tr>
 								<td>Password:</td>
-								<td><input type="password" name="password" /></td>
+								<td><input type="password" name="password" required/></td>
 							</tr>
 							<tr>
 								<td><input type="submit" value="Sign In" /></td>
@@ -35,5 +39,9 @@
 			</td>
 		</tr>
 	</table>
+	
+	<script>
+		$( "#loginForm" ).validate();
+	</script>
 </body>
 </html>

@@ -6,6 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,7 +19,7 @@
 	<form action="/WebShowcase/modifyProcess" method=post>
 
 	<center>
-			<table cellpadding=4 cellspacing=2 border=0>
+			<table cellpadding=4 cellspacing=2 border=0 id="myTable">
 				<tr>
 					<th width="45%">Description</th>
 					<th width="55%">Detail</th>
@@ -37,23 +41,25 @@
 				<tr>
 					<td>name</td>
 					<td><input type="text" name="name"
-						value="${param['name']}" size=15 maxlength=20></td>
+						value="${param['name']}" size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>email</td>
-					<td><input type="text" name="email" value="${param['email']}"
-						size=15 maxlength=20></td>
+					<td><input type="email" name="email" value="${param['email']}"
+						size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>password</td>
 					<td><input type="text" name="pw" value="${param['pw']}"
-						size=15 maxlength=20></td>
+						size=15 maxlength=20 required></td>
 				</tr>
 			</table>
 		</center>
 		<input type="submit" value="Submit"> <input type="reset"
 			value="Reset">
 	</form>
-	
+	<script>
+	$( "#myTable" ).validate();
+	</script>
 </body>
 </html>

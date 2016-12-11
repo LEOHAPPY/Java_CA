@@ -5,7 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -37,27 +41,27 @@
 				<tr>
 					<td>courseName</td>
 					<td><input type="text" name="courseName"
-						value="${param['courseName']}" size=15 maxlength=20></td>
+						value="${param['courseName']}" size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>courseStart</td>
 					<td><input type="date" name="courseStart" value="${param['courseStart']}"
-						size=15 maxlength=20></td>
+						size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>courseEnd</td>
 					<td><input type="date" name="courseEnd" value="${param['courseEnd']}"
-						size=15 maxlength=20></td>
+						size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>courseCredit</td>
 					<td><input type="text" name="courseCredit" value="${param['courseCredit']}"
-						size=15 maxlength=20></td>
+						size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>courseMaxSize</td>
 					<td><input type="text" name="courseMaxSize" value="${param['courseMaxSize']}"
-						size=15 maxlength=20></td>
+						size=15 maxlength=20 required></td>
 				</tr>
 				<tr>
 					<td>lecturerId</td>
@@ -92,6 +96,10 @@
 		<input type="submit" value="Submit"> <input type="reset"
 			value="Reset">
 	</form>
+	
+	<script>
+	$( "#myTable" ).validate();
+	</script>
 	
 </body>
 </html>
