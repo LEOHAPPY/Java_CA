@@ -5,16 +5,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <style>
+* {
+    box-sizing: border-box;
+}
+.header, {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+}
+.column {
+    float: left;
+    padding: 15px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.menu {
+    width: 25%;
+}
+.content {
+    width: 75%;
+}
+
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	<table style="float: left">
-		<tr><td><%@ include file="SamePart.jsp"%></td></tr>
-	</table>
+	<!-- left navigation -->
+<div class="clearfix">
+  <div class="column menu">
+		<%@ include file="SamePart.jsp"%>
+	</div>
+	<div class="column content">
 	
-			<table style="float: left" width="70%" border="1">
+			<table class="table">
+				<thead class="thead-inverse">
 		<tr><th>Enrollment ID</th><th>Student ID</th><th>CourseID</th><th>CourseGrade</th>
-		
+		</tr>
+		</thead>
 		<c:forEach var="enrollment"  items="${requestScope.eList}" varStatus="Status"  >
 		<tr>
 		<td>${enrollment.enrollmentId }</td>
@@ -32,5 +67,7 @@
 		</c:forEach>
 		
 	</table>
+	</div>
+	</div>
 </body>
 </html>

@@ -9,20 +9,60 @@
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <style>
+* {
+    box-sizing: border-box;
+}
+.header, {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+}
+.column {
+    float: left;
+    padding: 15px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.menu {
+    width: 25%;
+}
+.content {
+    width: 75%;
+}
+
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- Add -->
-	<!-- Edit -->
-
+<div class="clearfix">
+  <div class="column menu">
+		<%@ include file="SamePart.jsp"%>
+	</div>
+	<div class="column content">
+	
+	<!-- Add --><!-- Edit -->
+	
 	<form action="/WebShowcase/MEServlet/Update" method=post>
 
-		<center>
-			<table cellpadding=4 cellspacing=2 border=0>
+	<center>
+	<h3>Set up Page for CRUD</h3><br>
+<!-- 			<table cellpadding=4 cellspacing=2 border=0> -->
+				<table width="50%" cellspacing=30>
+				<thead>
 				<tr>
-					<th width="45%">Description</th>
-					<th width="55%">Detail</th>
+					<th>Description</th>
+					<th>Detail</th>
 				</tr>
+				</thead>
 				<tr>
 					<td>enrollmentId</td>
 					<td><c:if test="${!empty param['insert']}">

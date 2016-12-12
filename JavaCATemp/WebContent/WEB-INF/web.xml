@@ -14,7 +14,7 @@
   </context-param>
   <context-param>
     <param-name>recipient</param-name>
-    <param-value>yjdayuer@gmail.com</param-value>
+    <param-value>leochao.happy@gmail.com</param-value>
   </context-param>
   <filter>
     <filter-name>sitemesh</filter-name>

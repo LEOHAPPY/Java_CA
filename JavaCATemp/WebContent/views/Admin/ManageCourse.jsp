@@ -4,16 +4,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <style>
+* {
+    box-sizing: border-box;
+}
+.header, {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+}
+.column {
+    float: left;
+    padding: 15px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.menu {
+    width: 25%;
+}
+.content {
+    width: 75%;
+}
+
+</style>
 <title>Insert title here</title>
 </head>
 <body>
 	<!-- left navigation -->
-	<table style="float: left">
-		<tr>
-			<td><%@ include file="SamePart.jsp"%></td>
-		</tr>
-	</table>
+	<div class="clearfix">
+  <div class="column menu"><%@ include file="SamePart.jsp"%></div>
+<div class="column content">
 	<c:url var="addurl" scope="page"
 		value="/views/Admin/SetUpPageCourse.jsp">
 		<c:param name="newCourseID" value="${sessionScope.newCourseID }" />
@@ -23,8 +51,9 @@
 	
 	<br />
 	<br />
-
-	<table style="float: left" class="borderAll" border="1px">
+	<table class="table" >
+  <thead class="thead-inverse">
+	
 		<tr>
 			<th>#</th>
 			<th>courseId</th>
@@ -36,7 +65,7 @@
 			<th>lecturerId</th>
 			<th>Edit Delete</th>
 		</tr>
-
+</thead>
 		<c:forEach var="course" items="${requestScope.cList}"
 			varStatus="status">
 			<tr>
@@ -78,6 +107,7 @@
 		</c:forEach>
 
 	</table>
-
+</div>
+</div>
 </body>
 </html>

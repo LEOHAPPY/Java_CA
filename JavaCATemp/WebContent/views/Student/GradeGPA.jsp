@@ -7,17 +7,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <style>
+* {
+    box-sizing: border-box;
+}
+.header, {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+}
+.column {
+    float: left;
+    padding: 15px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.menu {
+    width: 20%;
+}
+.content {
+    width: 80%;
+}
+
+</style>
 <title>Insert title here</title>
 </head>
 <body>
 	<!-- left navigation -->
-	<table style="float: left" width=20%>
-		<td><%@ include file="SamePart.jsp"%></td>
-	</table>
+<div class="clearfix">
+  <div class="column menu">
+		<%@ include file="SamePart.jsp"%>
+	</div>
+	<div class="column content">
+		<!-- content -->
+<h1><center>Grade and GPA for Completed Courses</center></h1>
 
-	<!-- content -->
-	<table class="borderAll" border="1px">
-        <tr ><td colspan=8><h1><center>Grade And GPA for Completed Courses</center></h1></td><tr>
+	<table class="table" >
+  <thead class="thead-inverse">
+        
             <tr>
                <th>#</th>
                 <th>CourseID</th>
@@ -27,6 +61,7 @@
                 <th>Course Credit</th>
                 <th>Course Grade</th>            
             </tr>
+            </thead>
             
  <c:forEach var="grade" items="${grade}" varStatus="status">
 			<tr class="${status.index%2==0?'even':'odd'}">
@@ -45,5 +80,7 @@
             <td>${gpa}</td>
             <tr>
         </table>
+        </div>
+        </div>
 </body>
 </html>

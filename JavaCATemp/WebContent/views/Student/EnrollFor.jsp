@@ -7,19 +7,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Available Course</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <style>
+* {
+    box-sizing: border-box;
+}
+.header, {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+}
+.column {
+    float: left;
+    padding: 15px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.menu {
+    width: 20%;
+}
+.content {
+    width: 80%;
+}
+
+</style>
+<title>Insert title here</title>
 </head>
 <body>
 	<!-- left navigation -->
-	<table style="float: left" width=20%>
-		<tr><td><%@ include file="SamePart.jsp"%></td></tr>
-	</table>
+<div class="clearfix">
+  <div class="column menu">
+		<%@ include file="SamePart.jsp"%>
+	</div>
+	<div class="column content">
+		<!-- content -->
+<h1><center>Available Courses</center></h1>
 
-	<!-- content -->
-	
-       
-        <table class="borderAll" border="1px">
-        <tr ><td colspan=8><h1><center>Available Courses</center></h1></td><tr>
+	<table class="table" >
+  <thead class="thead-inverse">
+        
             <tr>
                <th>#</th>
                 <th>CourseID</th>
@@ -32,7 +64,7 @@
                 <th></th>
                
             </tr>
-            
+           </thead> 
  <c:forEach var="course" items="${course}" varStatus="status">
                 <tr class="${status.index%2==0?'even':'odd'}">
                      <td class="nowrap">${status.index + 1}</td>
@@ -54,5 +86,7 @@
                 </tr>
             </c:forEach>
         </table>
+        </div>
+        </div>
 </body>
 </html>

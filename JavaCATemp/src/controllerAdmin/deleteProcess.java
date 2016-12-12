@@ -66,17 +66,21 @@ public class deleteProcess extends HttpServlet {
 			Person pp = (Person)session.getAttribute("profile");
 			String role = pp.getSelNav();
 			
+			System.out.println("I am from code"+role);
+			
 			String id = request.getParameter("id");
 			PersonDAOAdmin pdao = DAOFactory.getPersonDAO();
 			Person p = pdao.findPerson(id,role);
 			System.out.println(p.toString());
 			pdao.deletePerson(p,role);
 			//refresh data and go to AdminDefault 
-			ArrayList<Person> aList = pdao.findAllPerson(role);
-			request.setAttribute("aList", aList);
-			
+//			ArrayList<Person> aList = pdao.findAllPerson(role);
+//			request.setAttribute("aList", aList);
+//			
 			request.setAttribute("idd", pp.getId());
-			RequestDispatcher rd = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
+			System.out.println("I am going to load Data again");
+//			RequestDispatcher rd = request.getRequestDispatcher("/views/Admin/AdminDefault.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/loadData");
 			try {
 				rd.forward(request, response);
 			} catch (ServletException e) {

@@ -77,7 +77,8 @@ public class loadData extends HttpServlet {
             page = Integer.parseInt(request.getParameter("page"));
         PersonDAOAdmin ad = dao.DAOFactory.getPersonDAO();
         String role=(String) session.getAttribute("role");
-        System.out.println(role);
+        
+        System.out.println("i am for loadData"+role);
         ArrayList<Person> list = ad.findAllPerson((page-1)*recordsPerPage,
                 recordsPerPage,selNav);
         int noOfRecords =ad.getNoOfRecords();
