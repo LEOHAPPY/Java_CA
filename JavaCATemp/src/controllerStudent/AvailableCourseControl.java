@@ -93,6 +93,19 @@ private void process(HttpServletRequest request, HttpServletResponse response) t
 					}
 				}				
 			}
+			else{
+				Course c=cs.findCourseById(e.getCourseId());
+				int currntCourseSize=es.findCourseCountByCourseID(c.getCourseId());
+				for (Course course : data) {
+					
+					if(today.after(course.getCourseStart()) 
+							|| course.getCourseMaxSize() <= currntCourseSize){
+						
+						System.out.println(result.remove(course));
+						//result.remove(course);
+					}
+				}				
+			}
 		}
 		
 		request.setAttribute("course", result);
